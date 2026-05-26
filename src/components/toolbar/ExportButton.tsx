@@ -16,11 +16,15 @@ import {
 
 interface ExportButtonProps {
   previewRef: RefObject<HTMLDivElement | null>;
+  label?: string;
 }
 
 type ToastState = { message: string; variant: 'success' | 'error' } | null;
 
-export function ExportButton({ previewRef }: ExportButtonProps) {
+export function ExportButton({
+  previewRef,
+  label = 'Télécharger PDF',
+}: ExportButtonProps) {
   const header = useCVStore((state) => state.document.header);
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState<ToastState>(null);
@@ -65,7 +69,7 @@ export function ExportButton({ previewRef }: ExportButtonProps) {
         onClick={handleExport}
         aria-label="Télécharger le CV en PDF"
       >
-        Télécharger PDF
+        {label}
       </Button>
       {toast && <Toast message={toast.message} variant={toast.variant} onDismiss={() => setToast(null)} />}
     </>

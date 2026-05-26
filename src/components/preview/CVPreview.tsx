@@ -17,10 +17,11 @@ import { TemplateRenderer } from './templates/TemplateRenderer';
 export interface CVPreviewProps {
   className?: string;
   showZoomControls?: boolean;
+  variant?: 'default' | 'studio';
 }
 
 export const CVPreview = forwardRef<HTMLDivElement, CVPreviewProps>(function CVPreview(
-  { className, showZoomControls = true },
+  { className, showZoomControls = true, variant = 'default' },
   ref,
 ) {
   const document = useCVStore((state) => state.document);
@@ -34,7 +35,7 @@ export const CVPreview = forwardRef<HTMLDivElement, CVPreviewProps>(function CVP
 
   return (
     <section
-      className={cn(styles.root, className)}
+      className={cn(styles.root, variant === 'studio' && styles.rootStudio, className)}
       aria-label="Aperçu du CV"
       data-cvforge-chrome
     >

@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { EditorWorkspace } from '@/components/editor/EditorWorkspace';
-import { Toolbar } from '@/components/toolbar/Toolbar';
+import { EditorShell } from '@/components/shell/EditorShell';
 import { useCVStore } from '@/store/cv.store';
 
 function rehydrateCvStore(): void {
@@ -25,12 +24,5 @@ export default function EditorApp() {
     rehydrateCvStore();
   }, []);
 
-  return (
-    <div className="flex h-screen flex-col overflow-hidden bg-slate-100">
-      <div data-cvforge-chrome className="shrink-0">
-        <Toolbar previewRef={previewRef} />
-      </div>
-      <EditorWorkspace previewRef={previewRef} />
-    </div>
-  );
+  return <EditorShell previewRef={previewRef} />;
 }

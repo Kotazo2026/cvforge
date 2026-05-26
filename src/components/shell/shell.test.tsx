@@ -1,0 +1,72 @@
+import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { createRef } from 'react';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { useCVStore } from '@/store/cv.store';
+import { useEditorUIStore } from '@/store/editor-ui.store';
+import { EditorShell } from './EditorShell';
+import { LayoutPanel } from './panels/LayoutPanel';
+import { TemplatesPanel } from './panels/TemplatesPanel';
+
+function resetStores(): void {
+  localStorage.clear();
+  useCVStore.persist.clearStorage();
+  useCVStore.getState().resetDocument();
+  useEditorUIStore.setState({
+    activePanel: 'templates',
+    sidebarCollapsed: false,
+    mobileNavOpen: false,
+    cvLanguage: 'fr',
+    isPremium: false,
+    previewView: 'cv',
+  });
+}
+
+describe('Editor shell v2', () => {
+  beforeEach(() => {
+    resetStores();
+    vi.stubGlobal(
+      'matchMedia',
+      vi.fn().mockImplementation((query: string) => ({
+        matches: query.includes('min-width'),
+        media: query,
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+      })),
+    );
+  });
+
+  afterEach(() => {
+    cleanup();
+    vi.restoreAllMocks();
+  });
+
+  it('affiche la barre supérieure et le fil d’Ariane', () => {
+    const previewRef = createRef<HTMLDivElement>();
+    render(<EditorShell previewRef={previewRef} />);
+
+    expect(screen.getByText('CVForge')).toBeTruthy();
+    expect(screen.getByText('Mes documents')).toBeTruthy();
+    expect(screen.getByRole('button', { name: /Fonctionnalités IA/i })).toBeTruthy();
+  });
+
+  it('change de panneau latéral', () => {
+    const previewRef = createRef<HTMLDivElement>();
+    render(<EditorShell previewRef={previewRef} />);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Informations' }));
+    expect(useEditorUIStore.getState().activePanel).toBe('info');
+    expect(screen.getByRole('heading', { name: 'Informations' })).toBeTruthy();
+  });
+
+  it('TemplatesPanel change le modèle', () => {
+    render(<TemplatesPanel />);
+    fireEvent.click(screen.getByRole('radio', { name: 'Modèle Modern' }));
+    expect(useCVStore.getState().document.templateId).toBe('modern');
+  });
+
+  it('LayoutPanel applique une palette', () => {
+    render(<LayoutPanel />);
+    fireEvent.click(screen.getByRole('button', { name: 'Palette Vert' }));
+    expect(useCVStore.getState().document.colors.primary).toBe('#059669');
+  });
+});

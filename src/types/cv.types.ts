@@ -42,11 +42,22 @@ export interface CVHeader {
   email: string;
   phone: string;
   location: string;
+  mobility?: string;
+  drivingLicense?: string;
   website?: string;
   linkedin?: string;
   photo?: string; // base64
   summary?: string;
 }
+
+/** Panneaux de la barre latérale gauche (shell v2). */
+export type EditorSidebarPanel = 'templates' | 'info' | 'layout' | 'sections' | 'ai';
+
+/** Langue du document CV (affichage / traduction future). */
+export type CVDocumentLanguage = 'fr' | 'en' | 'es' | 'de' | 'it' | 'pt';
+
+/** Mode d’aperçu central (Bloc 14 étendra Mobile / LinkedIn). */
+export type PreviewViewMode = 'cv' | 'mobile' | 'linkedin';
 
 // Templates disponibles
 export type TemplateId =

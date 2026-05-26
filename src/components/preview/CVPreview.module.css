@@ -7,6 +7,23 @@
   background: #e2e8f0;
 }
 
+.rootStudio {
+  background: #2a2a32;
+}
+
+.rootStudio .toolbar {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  background: rgba(15, 15, 19, 0.85);
+}
+
+.rootStudio .zoomLabel {
+  color: #d4d4d8;
+}
+
+.rootStudio .zoomSlider {
+  accent-color: #ff2d6b;
+}
+
 .toolbar {
   display: flex;
   align-items: center;

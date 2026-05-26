@@ -1,5 +1,12 @@
 import type { Metadata } from 'next';
+import { DM_Sans } from 'next/font/google';
 import './globals.css';
+
+const dmSans = DM_Sans({
+  subsets: ['latin'],
+  variable: '--font-dm-sans',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'CVForge — Générateur de CV premium',
@@ -13,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className={`${dmSans.variable} min-h-screen font-sans antialiased`}>{children}</body>
     </html>
   );
 }

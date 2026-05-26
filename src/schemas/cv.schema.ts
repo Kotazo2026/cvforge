@@ -41,6 +41,8 @@ export const cvHeaderSchema = z.object({
   email: z.string().email(),
   phone: z.string(),
   location: z.string(),
+  mobility: z.string().optional(),
+  drivingLicense: z.string().optional(),
   website: z.string().optional(),
   linkedin: z.string().optional(),
   photo: z.string().optional(),
