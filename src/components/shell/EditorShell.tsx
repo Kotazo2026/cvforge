@@ -8,6 +8,8 @@ import { CenterPreview } from './CenterPreview';
 import { LeftSidebar } from './LeftSidebar';
 import { RightPanel } from './RightPanel';
 import { SidebarPanel } from './SidebarPanel';
+import { AiChatFab } from '@/components/ai/AiChatFab';
+import { AiChatPanel } from '@/components/ai/AiChatPanel';
 import { AiFeaturesModal } from '@/components/ai/AiFeaturesModal';
 import { TopBar } from './TopBar';
 
@@ -55,6 +57,8 @@ export function EditorShell({ previewRef }: EditorShellProps) {
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-cvforge-bg text-cvforge-text">
       <AiFeaturesModal />
+      <AiChatFab />
+      <AiChatPanel />
       <TopBar previewRef={previewRef} />
 
       <div className="relative flex min-h-0 flex-1">

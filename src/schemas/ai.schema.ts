@@ -25,3 +25,14 @@ export const translateRequestSchema = z.object({
   document: cvDocumentSchema,
   targetLanguage: translationTargetSchema,
 });
+
+export const chatMessageSchema = z.object({
+  role: z.enum(['user', 'assistant']),
+  content: z.string().min(1),
+});
+
+export const chatRequestSchema = z.object({
+  document: cvDocumentSchema,
+  messages: z.array(chatMessageSchema).max(20),
+  userMessage: z.string().min(1).max(2000),
+});

@@ -81,6 +81,12 @@ describe('Editor shell v2', () => {
     expect(screen.getByText('Progression intelligente')).toBeTruthy();
   });
 
+  it('affiche le bouton flottant de l’assistant IA', () => {
+    const previewRef = createRef<HTMLDivElement>();
+    render(<EditorShell previewRef={previewRef} />);
+    expect(screen.getByRole('button', { name: /assistant IA/i })).toBeTruthy();
+  });
+
   it('ouvre la modale IA depuis la barre supérieure', () => {
     const previewRef = createRef<HTMLDivElement>();
     render(<EditorShell previewRef={previewRef} />);

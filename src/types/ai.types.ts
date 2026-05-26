@@ -125,3 +125,34 @@ export interface TranslationResult {
   targetLanguage: TranslationTargetLanguage;
   source: AiProviderSource;
 }
+
+export interface ChatCvPatch {
+  jobTitle?: string;
+  summary?: string;
+  experiences?: Array<{
+    sectionId: string;
+    entryId: string;
+    title?: string;
+    description?: string;
+  }>;
+}
+
+export interface ChatMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  patch?: ChatCvPatch;
+  patchApplied?: boolean;
+  source?: AiProviderSource;
+}
+
+export interface ChatResponse {
+  reply: string;
+  patch?: ChatCvPatch;
+  source: AiProviderSource;
+}
+
+export interface ChatRequestMessage {
+  role: 'user' | 'assistant';
+  content: string;
+}
