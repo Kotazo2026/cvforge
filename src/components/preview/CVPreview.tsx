@@ -1,30 +1,86 @@
 'use client';
 
-import type { CSSProperties } from 'react';
+import { forwardRef, useMemo, useState } from 'react';
 import { useCVStore } from '@/store/cv.store';
+import { cn } from '@/utils/cv.utils';
+import {
+  CV_PAGE_MIN_HEIGHT_PX,
+  CV_PAGE_WIDTH_PX,
+  DEFAULT_PREVIEW_ZOOM,
+  MAX_PREVIEW_ZOOM,
+  MIN_PREVIEW_ZOOM,
+  buildTemplateCssVars,
+} from './preview.constants';
+import styles from './CVPreview.module.css';
 import { TemplateRenderer } from './templates/TemplateRenderer';
 
-const FONT_SCALE: Record<'small' | 'medium' | 'large', number> = {
-  small: 0.9,
-  medium: 1,
-  large: 1.1,
-};
+export interface CVPreviewProps {
+  className?: string;
+  showZoomControls?: boolean;
+}
 
-/** Conteneur prévisualisation — zoom et print au Bloc 7. */
-export function CVPreview() {
+export const CVPreview = forwardRef<HTMLDivElement, CVPreviewProps>(function CVPreview(
+  { className, showZoomControls = true },
+  ref,
+) {
   const document = useCVStore((state) => state.document);
+  const [zoom, setZoom] = useState(DEFAULT_PREVIEW_ZOOM);
 
-  const cssVars = {
-    '--cv-primary': document.colors.primary,
-    '--cv-secondary': document.colors.secondary,
-    '--cv-text': document.colors.text,
-    '--cv-background': document.colors.background,
-    '--cv-font-scale': String(FONT_SCALE[document.fontSize]),
-  } as CSSProperties;
+  const scale = zoom / 100;
+  const cssVars = useMemo(() => buildTemplateCssVars(document), [document]);
+
+  const hostWidth = Math.round(CV_PAGE_WIDTH_PX * scale);
+  const hostHeight = Math.round(CV_PAGE_MIN_HEIGHT_PX * scale);
 
   return (
-    <div style={cssVars} className="cv-template-print-wrapper">
-      <TemplateRenderer document={document} />
-    </div>
+    <section className={cn(styles.root, className)} aria-label="Aperçu du CV">
+      {showZoomControls && (
+        <div className={styles.toolbar}>
+          <label className="flex items-center gap-2">
+            <span className="sr-only">Niveau de zoom de l&apos;aperçu</span>
+            <span className={styles.zoomLabel} aria-hidden>
+              {zoom}%
+            </span>
+            <input
+              type="range"
+              className={styles.zoomSlider}
+              min={MIN_PREVIEW_ZOOM}
+              max={MAX_PREVIEW_ZOOM}
+              step={5}
+              value={zoom}
+              onChange={(event) => setZoom(Number(event.target.value))}
+              aria-valuemin={MIN_PREVIEW_ZOOM}
+              aria-valuemax={MAX_PREVIEW_ZOOM}
+              aria-valuenow={zoom}
+            />
+          </label>
+        </div>
+      )}
+
+      <div className={styles.viewport}>
+        <div
+          className={styles.scaleHost}
+          style={{ width: hostWidth, minHeight: hostHeight }}
+        >
+          <div
+            className={styles.scaleInner}
+            style={{
+              transform: `scale(${scale})`,
+              width: CV_PAGE_WIDTH_PX,
+            }}
+          >
+            <div
+              ref={ref}
+              className={cn('cv-template-print-wrapper', styles.printWrapper)}
+              style={cssVars}
+            >
+              <div key={document.templateId} className={styles.templateLayer}>
+                <TemplateRenderer document={document} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
-}
+});

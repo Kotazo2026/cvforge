@@ -1,10 +1,10 @@
 'use client';
 
-import type { CSSProperties } from 'react';
+import { useRef } from 'react';
 import type { TemplateId } from '@/types/cv.types';
 import { useCVStore } from '@/store/cv.store';
-import { TemplateRenderer } from './templates/TemplateRenderer';
 import { cn } from '@/utils/cv.utils';
+import { CVPreview } from './CVPreview';
 
 const TEMPLATE_LABELS: Record<TemplateId, string> = {
   classic: 'Classic',
@@ -14,29 +14,16 @@ const TEMPLATE_LABELS: Record<TemplateId, string> = {
   executive: 'Executive',
 };
 
-const FONT_SCALE: Record<'small' | 'medium' | 'large', number> = {
-  small: 0.9,
-  medium: 1,
-  large: 1.1,
-};
-
-/** Aperçu live avec templates CV (zoom complet au Bloc 7). */
+/** Bandeau de sélection template (toolbar complète au Bloc 8) + aperçu CVPreview. */
 export function EditorLivePreview() {
   const document = useCVStore((state) => state.document);
   const setTemplate = useCVStore((state) => state.setTemplate);
-
-  const cssVars = {
-    '--cv-primary': document.colors.primary,
-    '--cv-secondary': document.colors.secondary,
-    '--cv-text': document.colors.text,
-    '--cv-background': document.colors.background,
-    '--cv-font-scale': String(FONT_SCALE[document.fontSize]),
-  } as CSSProperties;
+  const previewRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex h-full min-w-0 flex-1 flex-col">
       <div
-        className="flex flex-wrap justify-center gap-2 rounded-xl bg-white/80 p-2 shadow-sm"
+        className="flex shrink-0 flex-wrap justify-center gap-2 border-b border-slate-200 bg-white px-4 py-2"
         role="tablist"
         aria-label="Choisir un template"
       >
@@ -60,11 +47,7 @@ export function EditorLivePreview() {
         ))}
       </div>
 
-      <div className="overflow-auto rounded-lg bg-slate-200/60 p-4 shadow-inner">
-        <div style={cssVars}>
-          <TemplateRenderer document={document} />
-        </div>
-      </div>
+      <CVPreview ref={previewRef} className="min-h-0 flex-1" />
     </div>
   );
 }

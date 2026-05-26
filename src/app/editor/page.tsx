@@ -28,7 +28,10 @@ export default function EditorPage() {
   return (
     <main className="flex h-screen overflow-hidden bg-slate-100">
       <CVEditor />
-      <div className="flex-1 overflow-y-auto p-6">
+      <div
+        className="flex min-w-0 flex-col"
+        style={{ width: 'calc(100% - 400px)' }}
+      >
         <EditorLivePreview />
       </div>
     </main>

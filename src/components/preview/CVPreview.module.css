@@ -1,0 +1,107 @@
+.root {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  background: #e2e8f0;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #cbd5e1;
+  background: rgba(248, 250, 252, 0.95);
+  flex-shrink: 0;
+}
+
+.zoomLabel {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #475569;
+  min-width: 2.5rem;
+  text-align: right;
+}
+
+.zoomSlider {
+  width: 8rem;
+  height: 0.35rem;
+  cursor: pointer;
+  accent-color: #2563eb;
+}
+
+.zoomSlider:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.viewport {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.scaleHost {
+  /* Réserve l'espace visuel après transform scale */
+  position: relative;
+  flex-shrink: 0;
+}
+
+.scaleInner {
+  transform-origin: top center;
+  will-change: transform;
+}
+
+.printWrapper {
+  width: 794px;
+  min-height: 1123px;
+  box-shadow:
+    0 4px 6px -1px rgb(0 0 0 / 0.08),
+    0 12px 24px -4px rgb(0 0 0 / 0.12);
+}
+
+.templateLayer {
+  animation: cvPreviewFade 200ms ease;
+}
+
+@keyframes cvPreviewFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media print {
+  .root {
+    background: transparent;
+  }
+
+  .toolbar {
+    display: none;
+  }
+
+  .viewport {
+    padding: 0;
+    overflow: visible;
+  }
+
+  .scaleHost,
+  .scaleInner {
+    transform: none !important;
+    width: auto !important;
+    height: auto !important;
+  }
+
+  .printWrapper {
+    box-shadow: none;
+  }
+}
