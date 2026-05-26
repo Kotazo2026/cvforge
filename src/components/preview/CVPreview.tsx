@@ -2,6 +2,7 @@
 
 import { forwardRef, useMemo, useState } from 'react';
 import { useCVStore } from '@/store/cv.store';
+import type { CVDocument } from '@/types/cv.types';
 import { cn } from '@/utils/cv.utils';
 import {
   CV_PAGE_MIN_HEIGHT_PX,
@@ -19,13 +20,16 @@ export interface CVPreviewProps {
   className?: string;
   showZoomControls?: boolean;
   variant?: 'default' | 'studio';
+  /** Si fourni, remplace le document du store (vue partage lecture seule). */
+  document?: CVDocument;
 }
 
 export const CVPreview = forwardRef<HTMLDivElement, CVPreviewProps>(function CVPreview(
-  { className, showZoomControls = true, variant = 'default' },
+  { className, showZoomControls = true, variant = 'default', document: documentProp },
   ref,
 ) {
-  const document = useCVStore((state) => state.document);
+  const storeDocument = useCVStore((state) => state.document);
+  const document = documentProp ?? storeDocument;
   const [zoom, setZoom] = useState(DEFAULT_PREVIEW_ZOOM);
 
   const scale = zoom / 100;

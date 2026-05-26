@@ -69,6 +69,16 @@ describe('useCVStore', () => {
     expect(raw).toContain('Persist');
   });
 
+  it('importDocument remplace le document et réinitialise les traductions', () => {
+    useCVStore.getState().setDocumentTitle('CV importé');
+    const doc = structuredClone(useCVStore.getState().document);
+    useCVStore.getState().importDocument(doc);
+    expect(useCVStore.getState().document.title).toBe('CV importé');
+    expect(useCVStore.getState().primarySnapshot).toBeNull();
+    expect(useCVStore.getState().activeTranslationLang).toBeNull();
+    expect(useCVStore.getState().isDirty).toBe(true);
+  });
+
   it('resetDocument restaure le CV par défaut', () => {
     useCVStore.getState().updateHeader({ firstName: 'Temporaire' });
     useCVStore.getState().resetDocument();

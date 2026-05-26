@@ -3,6 +3,7 @@
 import type { RefObject } from 'react';
 import { useEffect, useState } from 'react';
 import { ChevronRight, FileText, Sparkles } from 'lucide-react';
+import { ShareButton } from '@/components/share/ShareButton';
 import { ExportButton } from '@/components/toolbar/ExportButton';
 import { useCVStore } from '@/store/cv.store';
 import { TRANSLATION_LANGUAGE_FLAGS, type TranslationTargetLanguage } from '@/types/ai.types';
@@ -168,6 +169,7 @@ export function TopBar({ previewRef }: TopBarProps) {
             Passer à Premium
           </a>
         )}
+        <ShareButton />
         <ExportButton previewRef={previewRef} label="Télécharger / Postuler" />
       </div>
     </header>

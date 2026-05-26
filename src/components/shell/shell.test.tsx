@@ -87,6 +87,12 @@ describe('Editor shell v2', () => {
     expect(screen.getByRole('button', { name: /assistant IA/i })).toBeTruthy();
   });
 
+  it('affiche le bouton Partager dans la barre supérieure', () => {
+    const previewRef = createRef<HTMLDivElement>();
+    render(<EditorShell previewRef={previewRef} />);
+    expect(screen.getByRole('button', { name: 'Partager' })).toBeTruthy();
+  });
+
   it('ouvre la modale IA depuis la barre supérieure', () => {
     const previewRef = createRef<HTMLDivElement>();
     render(<EditorShell previewRef={previewRef} />);

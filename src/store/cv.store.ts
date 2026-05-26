@@ -216,6 +216,16 @@ export const useCVStore = create<CVStore>()(
           state.activeTranslationLang = null;
         }),
 
+      importDocument: (document: CVDocument) =>
+        set((state) => {
+          state.document = structuredClone(document);
+          state.selectedSectionId = null;
+          state.isDirty = true;
+          state.primarySnapshot = null;
+          state.translationCopies = {};
+          state.activeTranslationLang = null;
+        }),
+
       applyFieldPatch: (fieldKey, value) =>
         set((state) => {
           const parsed = parseFieldKey(fieldKey);
