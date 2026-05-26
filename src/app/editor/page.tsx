@@ -1,22 +1,13 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { EditorWorkspace } from '@/components/editor/EditorWorkspace';
 import { Toolbar } from '@/components/toolbar/Toolbar';
-import { useCVStore } from '@/store/cv.store';
+import { useCvHydration } from '@/hooks/use-cv-hydration';
 
 export default function EditorPage() {
-  const [hydrated, setHydrated] = useState(false);
+  const hydrated = useCvHydration();
   const previewRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const finish = () => setHydrated(true);
-    if (useCVStore.persist.hasHydrated()) {
-      finish();
-      return;
-    }
-    return useCVStore.persist.onFinishHydration(finish);
-  }, []);
 
   if (!hydrated) {
     return (

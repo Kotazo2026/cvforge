@@ -13,6 +13,7 @@ import type {
   TemplateId,
 } from '@/types/cv.types';
 import { defaultCV, generateId } from '@/utils/cv.utils';
+import { cvPersistStorage } from './cv-storage';
 
 const SECTION_TITLES: Record<SectionType, string> = {
   header: 'Informations personnelles',
@@ -185,8 +186,10 @@ export const useCVStore = create<CVStore>()(
     })),
     {
       name: 'cvforge_document',
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() => cvPersistStorage),
       partialize: (state) => ({ document: state.document }),
+      skipHydration: true,
+      version: 1,
     },
   ),
 );
