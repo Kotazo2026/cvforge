@@ -1,8 +1,14 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useEffect, useRef } from 'react';
-import { EditorShell } from '@/components/shell/EditorShell';
+import { EditorLoading } from '@/components/shell/EditorLoading';
 import { useCVStore } from '@/store/cv.store';
+
+const EditorShell = dynamic(
+  () => import('@/components/shell/EditorShell').then((m) => m.EditorShell),
+  { loading: () => <EditorLoading />, ssr: false },
+);
 
 function rehydrateCvStore(): void {
   if (useCVStore.persist.hasHydrated()) return;

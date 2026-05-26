@@ -10,7 +10,8 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: 'CVForge — Générateur de CV premium',
-  description: 'Créez votre CV avec éditeur live et export PDF',
+  description:
+    'Créez votre CV avec 20 modèles, assistant IA, progression intelligente, partage par lien et export PDF.',
 };
 
 export default function RootLayout({

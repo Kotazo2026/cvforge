@@ -1,9 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import { ShareDialog } from './ShareDialog';
+
+const ShareDialog = dynamic(
+  () => import('./ShareDialog').then((m) => m.ShareDialog),
+  { ssr: false },
+);
 
 export function ShareButton() {
   const [open, setOpen] = useState(false);
@@ -20,7 +25,7 @@ export function ShareButton() {
       >
         Partager
       </Button>
-      <ShareDialog open={open} onClose={() => setOpen(false)} />
+      {open ? <ShareDialog open={open} onClose={() => setOpen(false)} /> : null}
     </>
   );
 }

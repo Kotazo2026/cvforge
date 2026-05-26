@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'CVForge — Créez votre CV',
+  title: 'CVForge — Éditeur CV v2',
   description:
-    'Créez et personnalisez votre CV en temps réel avec 8 modèles premium et export PDF.',
+    'Éditeur de CV en temps réel : 20 modèles, mise en page avancée, IA, vues Mobile/LinkedIn, partage et export PDF.',
 };
 
 export default function EditorLayout({ children }: { children: React.ReactNode }) {

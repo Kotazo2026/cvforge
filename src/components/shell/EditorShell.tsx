@@ -9,8 +9,7 @@ import { LeftSidebar } from './LeftSidebar';
 import { RightPanel } from './RightPanel';
 import { SidebarPanel } from './SidebarPanel';
 import { AiChatFab } from '@/components/ai/AiChatFab';
-import { AiChatPanel } from '@/components/ai/AiChatPanel';
-import { AiFeaturesModal } from '@/components/ai/AiFeaturesModal';
+import { EditorLazyOverlays } from './EditorLazyOverlays';
 import { TopBar } from './TopBar';
 
 const DESKTOP_PANEL_BP = 1280;
@@ -56,9 +55,8 @@ export function EditorShell({ previewRef }: EditorShellProps) {
 
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-cvforge-bg text-cvforge-text">
-      <AiFeaturesModal />
+      <EditorLazyOverlays />
       <AiChatFab />
-      <AiChatPanel />
       <TopBar previewRef={previewRef} />
 
       <div className="relative flex min-h-0 flex-1">

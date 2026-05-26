@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createRef } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { useCVStore } from '@/store/cv.store';
@@ -93,13 +93,15 @@ describe('Editor shell v2', () => {
     expect(screen.getByRole('button', { name: 'Partager' })).toBeTruthy();
   });
 
-  it('ouvre la modale IA depuis la barre supérieure', () => {
+  it('ouvre la modale IA depuis la barre supérieure', async () => {
     const previewRef = createRef<HTMLDivElement>();
     render(<EditorShell previewRef={previewRef} />);
 
     fireEvent.click(screen.getByRole('button', { name: /Fonctionnalités IA/i }));
     expect(useEditorUIStore.getState().aiModalOpen).toBe(true);
-    expect(screen.getByRole('dialog', { name: /Fonctionnalités IA/i })).toBeTruthy();
+    await waitFor(() => {
+      expect(screen.getByRole('dialog', { name: /Fonctionnalités IA/i })).toBeTruthy();
+    });
   });
 
   it('affiche les onglets multi-format actifs', () => {

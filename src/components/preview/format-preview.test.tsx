@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { useCVStore } from '@/store/cv.store';
 import { useEditorUIStore } from '@/store/editor-ui.store';
@@ -36,17 +36,21 @@ describe('Format previews (Bloc 14)', () => {
     expect(screen.getByRole('heading', { name: 'Expérience' })).toBeTruthy();
   });
 
-  it('CenterPreview bascule entre les trois vues', () => {
+  it('CenterPreview bascule entre les trois vues', async () => {
     const previewRef = createRef<HTMLDivElement>();
     render(<CenterPreview previewRef={previewRef} />);
 
     fireEvent.click(screen.getByRole('tab', { name: 'Vue Mobile' }));
     expect(useEditorUIStore.getState().previewView).toBe('mobile');
-    expect(screen.getByLabelText(/Aperçu mobile du CV/i)).toBeTruthy();
+    await waitFor(() => {
+      expect(screen.getByLabelText(/Aperçu mobile du CV/i)).toBeTruthy();
+    });
 
     fireEvent.click(screen.getByRole('tab', { name: 'Vue LinkedIn' }));
     expect(useEditorUIStore.getState().previewView).toBe('linkedin');
-    expect(screen.getByLabelText(/Simulation de profil LinkedIn/i)).toBeTruthy();
+    await waitFor(() => {
+      expect(screen.getByLabelText(/Simulation de profil LinkedIn/i)).toBeTruthy();
+    });
 
     fireEvent.click(screen.getByRole('tab', { name: 'Vue CV' }));
     expect(useEditorUIStore.getState().previewView).toBe('cv');

@@ -1,11 +1,20 @@
 'use client';
 
 import type { RefObject } from 'react';
+import dynamic from 'next/dynamic';
 import { EditorLivePreview } from '@/components/preview/EditorLivePreview';
-import { LinkedInPreview } from '@/components/preview/LinkedInPreview';
-import { MobilePreview } from '@/components/preview/MobilePreview';
 import { useEditorUIStore } from '@/store/editor-ui.store';
 import { cn } from '@/utils/cv.utils';
+
+const MobilePreview = dynamic(
+  () => import('@/components/preview/MobilePreview').then((m) => m.MobilePreview),
+  { ssr: false },
+);
+
+const LinkedInPreview = dynamic(
+  () => import('@/components/preview/LinkedInPreview').then((m) => m.LinkedInPreview),
+  { ssr: false },
+);
 
 interface CenterPreviewProps {
   previewRef: RefObject<HTMLDivElement | null>;
