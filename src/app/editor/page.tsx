@@ -29,7 +29,9 @@ export default function EditorPage() {
 
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-slate-100">
-      <Toolbar previewRef={previewRef} />
+      <div data-cvforge-chrome>
+        <Toolbar previewRef={previewRef} />
+      </div>
       <main className="flex min-h-0 flex-1">
         <CVEditor />
         <div

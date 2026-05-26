@@ -12,7 +12,10 @@ export function CVEditor() {
   const updateHeader = useCVStore((state) => state.updateHeader);
 
   return (
-    <aside className="flex h-full w-[400px] shrink-0 flex-col border-r border-slate-200 bg-slate-50">
+    <aside
+      className="flex h-full w-[400px] shrink-0 flex-col border-r border-slate-200 bg-slate-50"
+      data-cvforge-chrome
+    >
       <div className="flex-1 overflow-y-auto px-4 py-5">
         <section className="mb-6">
           <h2 className="mb-4 text-sm font-semibold uppercase tracking-wide text-slate-500">

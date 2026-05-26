@@ -33,9 +33,13 @@ export const CVPreview = forwardRef<HTMLDivElement, CVPreviewProps>(function CVP
   const hostHeight = Math.round(CV_PAGE_MIN_HEIGHT_PX * scale);
 
   return (
-    <section className={cn(styles.root, className)} aria-label="Aperçu du CV">
+    <section
+      className={cn(styles.root, className)}
+      aria-label="Aperçu du CV"
+      data-cvforge-chrome
+    >
       {showZoomControls && (
-        <div className={styles.toolbar}>
+        <div className={styles.toolbar} data-cvforge-chrome>
           <label className="flex items-center gap-2">
             <span className="sr-only">Niveau de zoom de l&apos;aperçu</span>
             <span className={styles.zoomLabel} aria-hidden>
