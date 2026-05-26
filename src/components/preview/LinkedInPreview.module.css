@@ -1,0 +1,212 @@
+.viewport {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: #2a2a32;
+}
+
+.profile {
+  width: 100%;
+  max-width: 552px;
+  flex-shrink: 0;
+  background: #f3f2ef;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow:
+    0 4px 12px rgb(0 0 0 / 0.15),
+    0 0 0 1px rgb(0 0 0 / 0.06);
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+}
+
+.banner {
+  height: 120px;
+  background: linear-gradient(
+    90deg,
+    var(--li-primary, #0a66c2) 0%,
+    color-mix(in srgb, var(--li-primary, #0a66c2) 55%, #004182) 100%
+  );
+}
+
+.identity {
+  position: relative;
+  padding: 0 1.25rem 1rem;
+  margin-top: -48px;
+}
+
+.photo {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #fff;
+  background: #fff;
+  display: block;
+}
+
+.initials {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  background: #e8e8e8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #666;
+}
+
+.name {
+  margin: 0.65rem 0 0;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.9);
+  line-height: 1.25;
+}
+
+.headline {
+  margin: 0.2rem 0 0;
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.9);
+  line-height: 1.4;
+}
+
+.location {
+  margin: 0.35rem 0 0;
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+}
+
+.actionPrimary {
+  padding: 0.35rem 1rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: var(--li-primary, #0a66c2);
+  color: #fff;
+  border: none;
+}
+
+.actionSecondary {
+  padding: 0.35rem 1rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: transparent;
+  color: var(--li-primary, #0a66c2);
+  border: 1px solid var(--li-primary, #0a66c2);
+}
+
+.card {
+  margin: 0.5rem 0.75rem 0;
+  padding: 1rem 1.1rem;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #e0dfdc;
+}
+
+.cardTitle {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.about {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.9);
+  white-space: pre-wrap;
+}
+
+.experienceItem {
+  display: flex;
+  gap: 0.75rem;
+  padding-bottom: 0.85rem;
+}
+
+.experienceItem:last-child {
+  padding-bottom: 0;
+}
+
+.companyLogo {
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  background: #f3f2ef;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #666;
+}
+
+.experienceBody {
+  min-width: 0;
+  flex: 1;
+}
+
+.roleTitle {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.companyLine {
+  margin: 0.15rem 0 0;
+  font-size: 0.85rem;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.dateLine {
+  margin: 0.15rem 0 0;
+  font-size: 0.8rem;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.roleDescription {
+  margin: 0.4rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.skillPill {
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: #eef3f8;
+  color: var(--li-primary, #0a66c2);
+}
+
+.footerSpacer {
+  height: 0.75rem;
+}

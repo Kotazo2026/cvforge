@@ -69,4 +69,14 @@ describe('Editor shell v2', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Palette Vert' }));
     expect(useCVStore.getState().document.colors.primary).toBe('#059669');
   });
+
+  it('affiche les onglets multi-format actifs', () => {
+    const previewRef = createRef<HTMLDivElement>();
+    render(<EditorShell previewRef={previewRef} />);
+
+    const mobileTab = screen.getByRole('tab', { name: 'Vue Mobile' });
+    expect(mobileTab.hasAttribute('disabled')).toBe(false);
+    fireEvent.click(mobileTab);
+    expect(useEditorUIStore.getState().previewView).toBe('mobile');
+  });
 });

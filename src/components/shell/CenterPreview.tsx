@@ -2,6 +2,8 @@
 
 import type { RefObject } from 'react';
 import { EditorLivePreview } from '@/components/preview/EditorLivePreview';
+import { LinkedInPreview } from '@/components/preview/LinkedInPreview';
+import { MobilePreview } from '@/components/preview/MobilePreview';
 import { useEditorUIStore } from '@/store/editor-ui.store';
 import { cn } from '@/utils/cv.utils';
 
@@ -36,16 +38,13 @@ export function CenterPreview({ previewRef }: CenterPreviewProps) {
               type="button"
               role="tab"
               aria-selected={previewView === mode.id}
-              disabled={mode.id !== 'cv'}
-              title={mode.id !== 'cv' ? 'Disponible au Bloc 14' : undefined}
-              onClick={() => mode.id === 'cv' && setPreviewView(mode.id)}
+              onClick={() => setPreviewView(mode.id)}
               className={cn(
                 'rounded-md px-2.5 py-1 text-xs font-medium transition-colors sm:px-3',
                 'focus:outline-none focus-visible:ring-2 focus-visible:ring-cvforge-accent-blue',
                 previewView === mode.id
                   ? 'bg-cvforge-accent-blue text-white'
-                  : 'text-cvforge-muted',
-                mode.id !== 'cv' && 'cursor-not-allowed opacity-50',
+                  : 'text-cvforge-muted hover:text-cvforge-text',
               )}
             >
               {mode.label}
@@ -55,13 +54,19 @@ export function CenterPreview({ previewRef }: CenterPreviewProps) {
       </div>
 
       <div className="relative min-h-0 flex-1">
-        {previewView === 'cv' ? (
+        {/* CV A4 visible ou masqué — le ref reste monté pour l’export PDF */}
+        <div
+          className={cn(
+            'absolute inset-0 flex flex-col',
+            previewView !== 'cv' && 'pointer-events-none invisible',
+          )}
+          aria-hidden={previewView !== 'cv'}
+        >
           <EditorLivePreview previewRef={previewRef} variant="studio" />
-        ) : (
-          <div className="flex h-full items-center justify-center p-8 text-center text-sm text-cvforge-muted">
-            Mode {previewView === 'mobile' ? 'mobile' : 'LinkedIn'} — Bloc 14
-          </div>
-        )}
+        </div>
+
+        {previewView === 'mobile' && <MobilePreview />}
+        {previewView === 'linkedin' && <LinkedInPreview />}
       </div>
     </main>
   );

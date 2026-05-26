@@ -56,7 +56,7 @@ export type EditorSidebarPanel = 'templates' | 'info' | 'layout' | 'sections' | 
 /** Langue du document CV (affichage / traduction future). */
 export type CVDocumentLanguage = 'fr' | 'en' | 'es' | 'de' | 'it' | 'pt';
 
-/** Mode d’aperçu central (Bloc 14 étendra Mobile / LinkedIn). */
+/** Mode d’aperçu central : CV A4, simulation mobile ou profil LinkedIn. */
 export type PreviewViewMode = 'cv' | 'mobile' | 'linkedin';
 
 // Templates disponibles
