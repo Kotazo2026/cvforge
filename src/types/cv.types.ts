@@ -49,7 +49,15 @@ export interface CVHeader {
 }
 
 // Templates disponibles
-export type TemplateId = 'classic' | 'modern' | 'minimal' | 'creative' | 'executive';
+export type TemplateId =
+  | 'classic'
+  | 'modern'
+  | 'minimal'
+  | 'creative'
+  | 'executive'
+  | 'elegant'
+  | 'tech'
+  | 'academic';
 
 // Couleurs primaires du template
 export interface CVColors {

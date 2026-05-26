@@ -1,0 +1,194 @@
+.root {
+  composes: cvTemplate from './shared.module.css';
+  display: flex;
+  font-family:
+    ui-monospace,
+    'Cascadia Code',
+    'Segoe UI Mono',
+    Menlo,
+    Consolas,
+    monospace;
+}
+
+.sidebar {
+  width: 32%;
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 1.75rem 1.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+}
+
+.main {
+  width: 68%;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  font-family: system-ui, sans-serif;
+}
+
+.identity {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.photoWrap {
+  display: flex;
+  justify-content: center;
+}
+
+.photo {
+  width: 88px;
+  height: 88px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 2px solid var(--cv-primary, #2563eb);
+}
+
+.initials {
+  width: 88px;
+  height: 88px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: var(--cv-primary, #2563eb);
+  color: #ffffff;
+}
+
+.name {
+  margin: 0;
+  font-size: calc(1.35rem * var(--cv-font-scale, 1));
+  font-weight: 700;
+  line-height: 1.2;
+  color: #ffffff;
+  font-family: system-ui, sans-serif;
+}
+
+.jobTitle {
+  margin: 0;
+  font-size: calc(0.82rem * var(--cv-font-scale, 1));
+  color: var(--cv-primary, #38bdf8);
+  font-family: inherit;
+}
+
+.sidebarBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.sidebarTitle {
+  margin: 0;
+  font-size: calc(0.72rem * var(--cv-font-scale, 1));
+  font-weight: 600;
+  text-transform: lowercase;
+  color: var(--cv-primary, #38bdf8);
+  letter-spacing: 0.04em;
+}
+
+.contactList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: calc(0.78rem * var(--cv-font-scale, 1));
+  font-family: system-ui, sans-serif;
+  line-height: 1.55;
+  opacity: 0.92;
+}
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.tag {
+  font-size: calc(0.72rem * var(--cv-font-scale, 1));
+  font-family: system-ui, sans-serif;
+  padding: 0.2rem 0.45rem;
+  border-radius: 4px;
+  background: rgba(56, 189, 248, 0.15);
+  color: #bae6fd;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+}
+
+.entryHighlight {
+  color: #ffffff;
+  font-family: system-ui, sans-serif;
+}
+
+.level {
+  opacity: 0.75;
+  font-family: system-ui, sans-serif;
+}
+
+.mainSection {
+  border-left: 3px solid var(--cv-primary, #2563eb);
+  padding-left: 0.85rem;
+}
+
+.mainTitle {
+  composes: sectionTitle from './shared.module.css';
+  color: var(--cv-primary, #2563eb);
+  margin-bottom: 0.55rem;
+}
+
+.summary {
+  margin: 0;
+  white-space: pre-wrap;
+  font-size: calc(0.9rem * var(--cv-font-scale, 1));
+  line-height: 1.55;
+}
+
+.entryList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.entry {
+  margin: 0;
+}
+
+.entryRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.entryTitle {
+  composes: entryTitle from './shared.module.css';
+  font-size: calc(0.95rem * var(--cv-font-scale, 1));
+}
+
+.dateChip {
+  flex-shrink: 0;
+  font-size: calc(0.72rem * var(--cv-font-scale, 1));
+  font-family: ui-monospace, monospace;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--cv-primary, #2563eb) 12%, transparent);
+  color: var(--cv-primary, #2563eb);
+}
+
+.entrySubtitle {
+  composes: entrySubtitle from './shared.module.css';
+}
+
+.entryMeta {
+  composes: entryMeta from './shared.module.css';
+}
+
+.entryDescription {
+  composes: entryDescription from './shared.module.css';
+}

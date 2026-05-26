@@ -1,18 +1,10 @@
 'use client';
 
-import type { TemplateId } from '@/types/cv.types';
+import { CV_TEMPLATES } from '@/config/cv-templates';
 import { useCVStore } from '@/store/cv.store';
 import { Tooltip } from '@/components/ui/Tooltip';
 import { cn } from '@/utils/cv.utils';
 import { TemplateThumbnail } from './TemplateThumbnail';
-
-const TEMPLATES: { id: TemplateId; label: string }[] = [
-  { id: 'classic', label: 'Classic' },
-  { id: 'modern', label: 'Modern' },
-  { id: 'minimal', label: 'Minimal' },
-  { id: 'creative', label: 'Creative' },
-  { id: 'executive', label: 'Executive' },
-];
 
 export function TemplateSelector() {
   const templateId = useCVStore((state) => state.document.templateId);
@@ -21,7 +13,7 @@ export function TemplateSelector() {
 
   return (
     <div className="flex items-center gap-2" role="radiogroup" aria-label="Choisir un modèle de CV">
-      {TEMPLATES.map((template) => (
+      {CV_TEMPLATES.map((template) => (
         <Tooltip key={template.id} content={template.label}>
           <button
             type="button"

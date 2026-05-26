@@ -23,6 +23,9 @@ export function TemplateThumbnail({ templateId, active, primaryColor }: Template
       {templateId === 'minimal' && <MinimalThumb />}
       {templateId === 'creative' && <CreativeThumb />}
       {templateId === 'executive' && <ExecutiveThumb />}
+      {templateId === 'elegant' && <ElegantThumb />}
+      {templateId === 'tech' && <TechThumb />}
+      {templateId === 'academic' && <AcademicThumb />}
     </div>
   );
 }
@@ -93,6 +96,48 @@ function ExecutiveThumb() {
       <div className={styles.executiveBlock} />
       <div className={styles.executiveBlock} />
       <div className={styles.executiveBlock} style={{ width: '90%' }} />
+    </div>
+  );
+}
+
+function ElegantThumb() {
+  return (
+    <div className={styles.elegant}>
+      <div className={styles.elegantTitle} />
+      <div className={styles.elegantSub} />
+      <div className={styles.elegantOrnament} />
+      <div className={styles.classicLineAccent} style={{ width: '50%', margin: '0 auto' }} />
+      <div className={styles.classicLine} />
+    </div>
+  );
+}
+
+function TechThumb() {
+  return (
+    <div className={styles.tech}>
+      <div className={styles.techSidebar}>
+        <div className={styles.techDot} />
+        <div className={styles.techLine} />
+      </div>
+      <div className={styles.techMain}>
+        <div className={styles.classicLineAccent} />
+        <div className={styles.classicLine} />
+        <div className={styles.classicLine} style={{ width: '85%' }} />
+      </div>
+    </div>
+  );
+}
+
+function AcademicThumb() {
+  return (
+    <div className={styles.academic}>
+      <div className={styles.academicHeader}>
+        <div className={styles.academicTitle} />
+        <div className={styles.academicContact} />
+      </div>
+      <div className={styles.academicRule} />
+      <div className={styles.classicLineAccent} />
+      <div className={styles.classicLine} />
     </div>
   );
 }

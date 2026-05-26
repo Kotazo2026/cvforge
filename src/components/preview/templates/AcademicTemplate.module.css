@@ -1,0 +1,122 @@
+.root {
+  composes: cvTemplate from './shared.module.css';
+  padding: 2rem 2.25rem;
+  font-family: 'Palatino Linotype', Palatino, 'Book Antiqua', Georgia, serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--cv-primary, #2563eb);
+  margin-bottom: 0.5rem;
+}
+
+.headerMain {
+  min-width: 0;
+}
+
+.name {
+  margin: 0;
+  font-size: calc(2rem * var(--cv-font-scale, 1));
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--cv-text, #111827);
+}
+
+.jobTitle {
+  margin: 0.4rem 0 0;
+  font-size: calc(1rem * var(--cv-font-scale, 1));
+  font-weight: 400;
+  color: var(--cv-primary, #2563eb);
+}
+
+.contactList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: right;
+  font-size: calc(0.78rem * var(--cv-font-scale, 1));
+  font-family: system-ui, sans-serif;
+  line-height: 1.55;
+  opacity: 0.85;
+  flex-shrink: 0;
+}
+
+.section {
+  margin-top: 1.15rem;
+}
+
+.sectionTitle {
+  margin: 0 0 0.55rem;
+  font-size: calc(0.95rem * var(--cv-font-scale, 1));
+  font-weight: 700;
+  color: var(--cv-text, #111827);
+  border-bottom: 1px solid #d1d5db;
+  padding-bottom: 0.25rem;
+}
+
+.summary {
+  margin: 0;
+  white-space: pre-wrap;
+  font-size: calc(0.9rem * var(--cv-font-scale, 1));
+  line-height: 1.55;
+}
+
+.entryList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.entry {
+  margin: 0;
+}
+
+.entryHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.entryTitle {
+  composes: entryTitle from './shared.module.css';
+  font-size: calc(0.95rem * var(--cv-font-scale, 1));
+}
+
+.entrySubtitle {
+  composes: entrySubtitle from './shared.module.css';
+  font-style: italic;
+}
+
+.entryDate {
+  margin: 0;
+  flex-shrink: 0;
+  font-size: calc(0.78rem * var(--cv-font-scale, 1));
+  font-family: system-ui, sans-serif;
+  font-weight: 600;
+  color: var(--cv-primary, #2563eb);
+}
+
+.entryMeta {
+  composes: entryMeta from './shared.module.css';
+  font-family: system-ui, sans-serif;
+}
+
+.entryDescription {
+  composes: entryDescription from './shared.module.css';
+  font-size: calc(0.88rem * var(--cv-font-scale, 1));
+}
+
+.bulletList {
+  margin: 0;
+  padding-left: 1.25rem;
+  font-size: calc(0.88rem * var(--cv-font-scale, 1));
+  line-height: 1.6;
+}

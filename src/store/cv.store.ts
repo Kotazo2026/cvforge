@@ -12,6 +12,7 @@ import type {
   SectionType,
   TemplateId,
 } from '@/types/cv.types';
+import { normalizeTemplateId } from '@/config/cv-templates';
 import { defaultCV, generateId } from '@/utils/cv.utils';
 import { cvPersistStorage } from './cv-storage';
 
@@ -189,7 +190,17 @@ export const useCVStore = create<CVStore>()(
       storage: createJSONStorage(() => cvPersistStorage),
       partialize: (state) => ({ document: state.document }),
       skipHydration: true,
-      version: 1,
+      version: 2,
+      migrate: (persistedState) => {
+        if (!persistedState || typeof persistedState !== 'object') {
+          return persistedState as { document: CVDocument };
+        }
+        const state = persistedState as { document?: CVDocument };
+        if (state.document?.templateId) {
+          state.document.templateId = normalizeTemplateId(state.document.templateId);
+        }
+        return state;
+      },
     },
   ),
 );

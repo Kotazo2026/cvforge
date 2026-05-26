@@ -1,11 +1,14 @@
 import { render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { defaultCV } from '@/utils/cv.utils';
+import { AcademicTemplate } from './AcademicTemplate';
 import { ClassicTemplate } from './ClassicTemplate';
 import { CreativeTemplate } from './CreativeTemplate';
+import { ElegantTemplate } from './ElegantTemplate';
 import { ExecutiveTemplate } from './ExecutiveTemplate';
 import { MinimalTemplate } from './MinimalTemplate';
 import { ModernTemplate } from './ModernTemplate';
+import { TechTemplate } from './TechTemplate';
 import { TemplateRenderer } from './TemplateRenderer';
 
 const document = defaultCV();
@@ -17,6 +20,9 @@ describe('CV templates', () => {
     ['Minimal', MinimalTemplate],
     ['Creative', CreativeTemplate],
     ['Executive', ExecutiveTemplate],
+    ['Elegant', ElegantTemplate],
+    ['Tech', TechTemplate],
+    ['Academic', AcademicTemplate],
   ] as const)('rend %s sans erreur', (_name, Template) => {
     const { container } = render(<Template document={document} />);
     expect(container.querySelector('.cv-template')).toBeTruthy();

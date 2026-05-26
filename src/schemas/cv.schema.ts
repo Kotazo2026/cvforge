@@ -53,6 +53,9 @@ export const templateIdSchema = z.enum([
   'minimal',
   'creative',
   'executive',
+  'elegant',
+  'tech',
+  'academic',
 ]);
 
 export const cvColorsSchema = z.object({

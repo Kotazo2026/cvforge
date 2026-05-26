@@ -1,6 +1,6 @@
 # CVForge
 
-Générateur de CV premium avec éditeur visuel en temps réel, 5 modèles et export PDF. Projet modulaire conçu pour être intégré dans une application Next.js existante.
+Générateur de CV premium avec éditeur visuel en temps réel, 8 modèles et export PDF. Projet modulaire conçu pour être intégré dans une application Next.js existante.
 
 ## Prérequis
 
