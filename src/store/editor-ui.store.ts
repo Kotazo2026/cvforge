@@ -1,7 +1,8 @@
 import { create } from 'zustand';
+import type { GrammarIssue } from '@/types/ai.types';
 import type { CVDocumentLanguage, EditorSidebarPanel, PreviewViewMode } from '@/types/cv.types';
 
-export type AiModalTab = 'prefill' | 'ats';
+export type AiModalTab = 'prefill' | 'ats' | 'advice' | 'grammar' | 'translate';
 
 export interface EditorUIStore {
   activePanel: EditorSidebarPanel;
@@ -12,6 +13,8 @@ export interface EditorUIStore {
   previewView: PreviewViewMode;
   aiModalOpen: boolean;
   aiModalTab: AiModalTab;
+  fieldHints: Record<string, string>;
+  grammarIssues: GrammarIssue[];
   setActivePanel: (panel: EditorSidebarPanel) => void;
   setSidebarCollapsed: (collapsed: boolean) => void;
   setMobileNavOpen: (open: boolean) => void;
@@ -20,6 +23,10 @@ export interface EditorUIStore {
   openAiModal: (tab?: AiModalTab) => void;
   closeAiModal: () => void;
   setAiModalTab: (tab: AiModalTab) => void;
+  setFieldHints: (hints: Record<string, string>) => void;
+  clearFieldHints: () => void;
+  setGrammarIssues: (issues: GrammarIssue[]) => void;
+  removeGrammarIssue: (id: string) => void;
 }
 
 export const useEditorUIStore = create<EditorUIStore>((set) => ({
@@ -31,6 +38,8 @@ export const useEditorUIStore = create<EditorUIStore>((set) => ({
   previewView: 'cv',
   aiModalOpen: false,
   aiModalTab: 'prefill',
+  fieldHints: {},
+  grammarIssues: [],
   setActivePanel: (panel) => set({ activePanel: panel }),
   setSidebarCollapsed: (sidebarCollapsed) => set({ sidebarCollapsed }),
   setMobileNavOpen: (mobileNavOpen) => set({ mobileNavOpen }),
@@ -40,4 +49,11 @@ export const useEditorUIStore = create<EditorUIStore>((set) => ({
     set({ aiModalOpen: true, aiModalTab: tab, activePanel: 'ai' }),
   closeAiModal: () => set({ aiModalOpen: false }),
   setAiModalTab: (aiModalTab) => set({ aiModalTab }),
+  setFieldHints: (fieldHints) => set({ fieldHints }),
+  clearFieldHints: () => set({ fieldHints: {} }),
+  setGrammarIssues: (grammarIssues) => set({ grammarIssues }),
+  removeGrammarIssue: (id) =>
+    set((state) => ({
+      grammarIssues: state.grammarIssues.filter((issue) => issue.id !== id),
+    })),
 }));

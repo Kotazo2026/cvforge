@@ -12,6 +12,8 @@ describe('useEditorUIStore', () => {
       previewView: 'cv',
       aiModalOpen: false,
       aiModalTab: 'prefill',
+      fieldHints: {},
+      grammarIssues: [],
     });
   });
 

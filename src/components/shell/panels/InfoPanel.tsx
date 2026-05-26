@@ -1,13 +1,21 @@
 'use client';
 
+import { FieldAiHint } from '@/components/ai/FieldAiHint';
 import { PhotoField } from '@/components/editor/fields/PhotoField';
 import { TextField } from '@/components/editor/fields/TextField';
 import { TextareaField } from '@/components/editor/fields/TextareaField';
+import { headerFieldKey } from '@/lib/ai/field-keys';
 import { useCVStore } from '@/store/cv.store';
+import { useEditorUIStore } from '@/store/editor-ui.store';
 
 export function InfoPanel() {
   const header = useCVStore((state) => state.document.header);
   const updateHeader = useCVStore((state) => state.updateHeader);
+  const fieldHints = useEditorUIStore((state) => state.fieldHints);
+  const grammarIssues = useEditorUIStore((state) => state.grammarIssues);
+  const summaryKey = headerFieldKey('summary');
+  const summaryHint = fieldHints[summaryKey];
+  const summaryGrammar = grammarIssues.find((issue) => issue.fieldKey === summaryKey);
 
   return (
     <div className="flex h-full flex-col">
@@ -43,7 +51,14 @@ export function InfoPanel() {
             value={header.summary ?? ''}
             onChange={(summary) => updateHeader({ summary })}
             minRows={3}
+            grammarHighlight={Boolean(summaryGrammar)}
+            grammarTitle={
+              summaryGrammar
+                ? `${summaryGrammar.message} → ${summaryGrammar.suggestion}`
+                : undefined
+            }
           />
+          {summaryHint && <FieldAiHint message={summaryHint} />}
           <TextField
             label="E-mail"
             value={header.email}

@@ -13,6 +13,9 @@ export interface TextareaFieldProps {
   showCharCount?: boolean;
   className?: string;
   disabled?: boolean;
+  /** Surlignage jaune quand une correction grammaticale est en attente. */
+  grammarHighlight?: boolean;
+  grammarTitle?: string;
 }
 
 export function TextareaField({
@@ -25,6 +28,8 @@ export function TextareaField({
   showCharCount = false,
   className,
   disabled = false,
+  grammarHighlight = false,
+  grammarTitle,
 }: TextareaFieldProps) {
   const id = useId();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -58,11 +63,13 @@ export function TextareaField({
         }}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
+        title={grammarTitle}
         className={cn(
           'w-full resize-none overflow-hidden rounded-lg border border-slate-200 bg-white px-3 pb-2 pt-5 text-sm text-slate-900',
           'transition-colors placeholder:text-slate-400',
           'focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500',
           'disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500',
+          grammarHighlight && 'border-yellow-400 bg-yellow-50 ring-2 ring-yellow-400/70',
         )}
       />
       <label

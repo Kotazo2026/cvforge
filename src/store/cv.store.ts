@@ -13,6 +13,7 @@ import type {
   SectionType,
   TemplateId,
 } from '@/types/cv.types';
+import { parseFieldKey } from '@/lib/ai/field-keys';
 import { normalizeTemplateId } from '@/config/cv-templates';
 import { createDefaultLayout, mergeLayoutPatch } from '@/utils/cv-layout.utils';
 import { defaultCV, generateId } from '@/utils/cv.utils';
@@ -57,6 +58,9 @@ export const useCVStore = create<CVStore>()(
       document: defaultCV(),
       selectedSectionId: null,
       isDirty: false,
+      primarySnapshot: null,
+      translationCopies: {},
+      activeTranslationLang: null,
 
       updateHeader: (header: Partial<CVHeader>) =>
         set((state) => {
@@ -207,6 +211,74 @@ export const useCVStore = create<CVStore>()(
           state.document = defaultCV();
           state.selectedSectionId = null;
           state.isDirty = false;
+          state.primarySnapshot = null;
+          state.translationCopies = {};
+          state.activeTranslationLang = null;
+        }),
+
+      applyFieldPatch: (fieldKey, value) =>
+        set((state) => {
+          const parsed = parseFieldKey(fieldKey);
+          if (!parsed) return;
+
+          if (parsed.type === 'header') {
+            if (parsed.field === 'summary') {
+              state.document.header.summary = value;
+              const summarySection = state.document.sections.find((s) => s.type === 'summary');
+              if (summarySection?.entries[0]) {
+                summarySection.entries[0].description = value;
+              }
+            } else {
+              state.document.header[parsed.field] = value;
+            }
+          } else {
+            const section = state.document.sections.find((s) => s.id === parsed.sectionId);
+            const entry = section?.entries.find((e) => e.id === parsed.entryId);
+            if (!entry) return;
+            if (parsed.field === 'title') entry.title = value;
+            else if (parsed.field === 'subtitle') entry.subtitle = value;
+            else entry.description = value;
+          }
+          touchDocument(state);
+        }),
+
+      loadTranslation: (lang, translated) =>
+        set((state) => {
+          if (state.activeTranslationLang) {
+            state.translationCopies[state.activeTranslationLang] = structuredClone(state.document);
+          }
+          if (!state.primarySnapshot) {
+            state.primarySnapshot = structuredClone(state.document);
+          }
+          state.translationCopies[lang] = translated;
+          state.document = translated;
+          state.activeTranslationLang = lang;
+          touchDocument(state);
+        }),
+
+      switchToPrimaryDocument: () =>
+        set((state) => {
+          if (!state.primarySnapshot) return;
+          if (state.activeTranslationLang) {
+            state.translationCopies[state.activeTranslationLang] = structuredClone(state.document);
+          }
+          state.document = state.primarySnapshot;
+          state.primarySnapshot = null;
+          state.activeTranslationLang = null;
+        }),
+
+      switchToTranslation: (lang) =>
+        set((state) => {
+          const copy = state.translationCopies[lang];
+          if (!copy) return;
+          if (state.activeTranslationLang) {
+            state.translationCopies[state.activeTranslationLang] = structuredClone(state.document);
+          }
+          if (!state.primarySnapshot) {
+            state.primarySnapshot = structuredClone(state.document);
+          }
+          state.document = copy;
+          state.activeTranslationLang = lang;
         }),
 
       applyPrefill: (input: ApplyPrefillInput) =>

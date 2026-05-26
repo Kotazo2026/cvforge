@@ -20,6 +20,8 @@ function resetStores(): void {
     previewView: 'cv',
     aiModalOpen: false,
     aiModalTab: 'prefill',
+    fieldHints: {},
+    grammarIssues: [],
   });
 }
 

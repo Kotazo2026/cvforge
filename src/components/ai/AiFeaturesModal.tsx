@@ -2,15 +2,38 @@
 
 import { useEffect, useId, useRef } from 'react';
 import { X } from 'lucide-react';
-import { useEditorUIStore } from '@/store/editor-ui.store';
+import { useEditorUIStore, type AiModalTab } from '@/store/editor-ui.store';
 import { cn } from '@/utils/cv.utils';
+import { AdvicePanel } from './AdvicePanel';
 import { AtsScorePanel } from './AtsScorePanel';
+import { GrammarPanel } from './GrammarPanel';
 import { PrefillPanel } from './PrefillPanel';
+import { TranslatePanel } from './TranslatePanel';
 
-const TABS = [
-  { id: 'prefill' as const, label: 'Pré-remplir' },
-  { id: 'ats' as const, label: 'Score ATS' },
+const TABS: { id: AiModalTab; label: string }[] = [
+  { id: 'prefill', label: 'Pré-remplir' },
+  { id: 'ats', label: 'Score ATS' },
+  { id: 'advice', label: 'Conseils' },
+  { id: 'grammar', label: 'Correction' },
+  { id: 'translate', label: 'Traduction' },
 ];
+
+function renderPanel(tab: AiModalTab) {
+  switch (tab) {
+    case 'prefill':
+      return <PrefillPanel />;
+    case 'ats':
+      return <AtsScorePanel />;
+    case 'advice':
+      return <AdvicePanel />;
+    case 'grammar':
+      return <GrammarPanel />;
+    case 'translate':
+      return <TranslatePanel />;
+    default:
+      return null;
+  }
+}
 
 export function AiFeaturesModal() {
   const open = useEditorUIStore((state) => state.aiModalOpen);
@@ -55,7 +78,7 @@ export function AiFeaturesModal() {
               Fonctionnalités IA
             </h2>
             <p className="text-xs text-cvforge-muted">
-              Pré-remplissage depuis une offre · Score ATS avec recommandations
+              Pré-remplir · ATS · Conseils · Correction · Traduction
             </p>
           </div>
           <button
@@ -69,7 +92,7 @@ export function AiFeaturesModal() {
         </header>
 
         <div
-          className="flex shrink-0 gap-1 border-b border-cvforge-border px-4 py-2"
+          className="flex shrink-0 gap-1 overflow-x-auto border-b border-cvforge-border px-4 py-2"
           role="tablist"
           aria-label="Outils IA"
         >
@@ -81,7 +104,7 @@ export function AiFeaturesModal() {
               aria-selected={tab === item.id}
               onClick={() => setAiModalTab(item.id)}
               className={cn(
-                'rounded-lg px-3 py-1.5 text-sm font-medium transition-colors',
+                'shrink-0 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors',
                 tab === item.id
                   ? 'bg-cvforge-accent-blue text-white'
                   : 'text-cvforge-muted hover:text-cvforge-text',
@@ -92,9 +115,7 @@ export function AiFeaturesModal() {
           ))}
         </div>
 
-        <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4">
-          {tab === 'prefill' ? <PrefillPanel /> : <AtsScorePanel />}
-        </div>
+        <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4">{renderPanel(tab)}</div>
       </div>
     </div>
   );

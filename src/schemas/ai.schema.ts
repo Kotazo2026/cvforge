@@ -10,3 +10,18 @@ export const atsScoreRequestSchema = z.object({
   document: cvDocumentSchema,
   jobOffer: z.string().optional(),
 });
+
+export const adviceRequestSchema = z.object({
+  document: cvDocumentSchema,
+});
+
+export const grammarRequestSchema = z.object({
+  document: cvDocumentSchema,
+});
+
+export const translationTargetSchema = z.enum(['en', 'es', 'de', 'it', 'pt', 'ar', 'zh']);
+
+export const translateRequestSchema = z.object({
+  document: cvDocumentSchema,
+  targetLanguage: translationTargetSchema,
+});

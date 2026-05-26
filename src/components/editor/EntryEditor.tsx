@@ -2,7 +2,10 @@
 
 import { useState } from 'react';
 import type { CVEntry, CVSection, SectionType } from '@/types/cv.types';
+import { FieldAiHint } from '@/components/ai/FieldAiHint';
+import { entryFieldKey } from '@/lib/ai/field-keys';
 import { useCVStore } from '@/store/cv.store';
+import { useEditorUIStore } from '@/store/editor-ui.store';
 import { DateField } from './fields/DateField';
 import { TagField } from './fields/TagField';
 import { TextField } from './fields/TextField';
@@ -15,7 +18,13 @@ interface EntryEditorProps {
 
 export function EntryEditor({ section, entry }: EntryEditorProps) {
   const updateEntry = useCVStore((state) => state.updateEntry);
+  const fieldHints = useEditorUIStore((state) => state.fieldHints);
+  const grammarIssues = useEditorUIStore((state) => state.grammarIssues);
   const [tagDraft, setTagDraft] = useState('');
+
+  const descriptionKey = entryFieldKey(section.id, entry.id, 'description');
+  const descriptionHint = fieldHints[descriptionKey];
+  const descriptionGrammar = grammarIssues.find((issue) => issue.fieldKey === descriptionKey);
 
   const patch = (data: Partial<CVEntry>) => {
     updateEntry(section.id, entry.id, data);
@@ -23,9 +32,19 @@ export function EntryEditor({ section, entry }: EntryEditorProps) {
 
   return (
     <div className="flex flex-col gap-3 border-t border-slate-100 pt-3">
-      {renderFields(section.type, entry, patch, tagDraft, setTagDraft)}
+      {renderFields(section.type, entry, patch, tagDraft, setTagDraft, {
+        descriptionKey,
+        descriptionHint,
+        descriptionGrammar,
+      })}
     </div>
   );
+}
+
+interface FieldMeta {
+  descriptionKey: string;
+  descriptionHint?: string;
+  descriptionGrammar?: { suggestion: string; message: string };
 }
 
 function renderFields(
@@ -34,7 +53,33 @@ function renderFields(
   patch: (data: Partial<CVEntry>) => void,
   tagDraft: string,
   setTagDraft: (value: string) => void,
+  meta: FieldMeta,
 ) {
+  const descriptionExtras = (
+    <>
+      {meta.descriptionHint && <FieldAiHint message={meta.descriptionHint} />}
+    </>
+  );
+
+  const descriptionField = (minRows: number, maxLength?: number, showCharCount?: boolean) => (
+    <>
+      <TextareaField
+        label="Description"
+        value={entry.description ?? ''}
+        onChange={(description) => patch({ description })}
+        minRows={minRows}
+        maxLength={maxLength}
+        showCharCount={showCharCount}
+        grammarHighlight={Boolean(meta.descriptionGrammar)}
+        grammarTitle={
+          meta.descriptionGrammar
+            ? `${meta.descriptionGrammar.message} → ${meta.descriptionGrammar.suggestion}`
+            : undefined
+        }
+      />
+      {descriptionExtras}
+    </>
+  );
   switch (type) {
     case 'experience':
     case 'education':
@@ -63,12 +108,7 @@ function renderFields(
               patch({ startDate, endDate, current })
             }
           />
-          <TextareaField
-            label="Description"
-            value={entry.description ?? ''}
-            onChange={(description) => patch({ description })}
-            minRows={3}
-          />
+          {descriptionField(3)}
         </>
       );
 
@@ -153,12 +193,7 @@ function renderFields(
             onChange={(location) => patch({ location })}
             type="url"
           />
-          <TextareaField
-            label="Description"
-            value={entry.description ?? ''}
-            onChange={(description) => patch({ description })}
-            minRows={3}
-          />
+          {descriptionField(3)}
         </>
       );
 
@@ -186,14 +221,23 @@ function renderFields(
 
     case 'summary':
       return (
-        <TextareaField
-          label="Profil"
-          value={entry.description ?? entry.title}
-          onChange={(description) => patch({ description, title: 'Profil' })}
-          minRows={4}
-          showCharCount
-          maxLength={600}
-        />
+        <>
+          <TextareaField
+            label="Profil"
+            value={entry.description ?? entry.title}
+            onChange={(description) => patch({ description, title: 'Profil' })}
+            minRows={4}
+            showCharCount
+            maxLength={600}
+            grammarHighlight={Boolean(meta.descriptionGrammar)}
+            grammarTitle={
+              meta.descriptionGrammar
+                ? `${meta.descriptionGrammar.message} → ${meta.descriptionGrammar.suggestion}`
+                : undefined
+            }
+          />
+          {meta.descriptionHint && <FieldAiHint message={meta.descriptionHint} />}
+        </>
       );
 
     case 'custom':
@@ -205,12 +249,7 @@ function renderFields(
             value={entry.title}
             onChange={(title) => patch({ title })}
           />
-          <TextareaField
-            label="Contenu"
-            value={entry.description ?? ''}
-            onChange={(description) => patch({ description })}
-            minRows={3}
-          />
+          {descriptionField(3)}
         </>
       );
   }

@@ -160,6 +160,12 @@ export interface CVStore {
   document: CVDocument;
   selectedSectionId: string | null;
   isDirty: boolean;
+  /** Copie du CV source (français / original) pendant consultation d’une traduction. */
+  primarySnapshot: CVDocument | null;
+  /** Versions traduites par code langue. */
+  translationCopies: Record<string, CVDocument>;
+  /** Langue de la copie actuellement affichée, ou null si original. */
+  activeTranslationLang: string | null;
 
   // Actions
   updateHeader: (header: Partial<CVHeader>) => void;
@@ -198,4 +204,8 @@ export interface CVStore {
       description?: string;
     }>;
   }) => void;
+  applyFieldPatch: (fieldKey: string, value: string) => void;
+  loadTranslation: (lang: string, translated: CVDocument) => void;
+  switchToPrimaryDocument: () => void;
+  switchToTranslation: (lang: string) => void;
 }

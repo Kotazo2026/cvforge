@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { ChevronRight, FileText, Sparkles } from 'lucide-react';
 import { ExportButton } from '@/components/toolbar/ExportButton';
 import { useCVStore } from '@/store/cv.store';
+import { TRANSLATION_LANGUAGE_FLAGS, type TranslationTargetLanguage } from '@/types/ai.types';
 import { useEditorUIStore } from '@/store/editor-ui.store';
 import { cn } from '@/utils/cv.utils';
 
@@ -27,6 +28,12 @@ export function TopBar({ previewRef }: TopBarProps) {
   const cvLanguage = useEditorUIStore((state) => state.cvLanguage);
   const isPremium = useEditorUIStore((state) => state.isPremium);
   const openAiModal = useEditorUIStore((state) => state.openAiModal);
+  const primarySnapshot = useCVStore((state) => state.primarySnapshot);
+  const activeTranslationLang = useCVStore((state) => state.activeTranslationLang);
+  const translationCopies = useCVStore((state) => state.translationCopies);
+  const switchToPrimaryDocument = useCVStore((state) => state.switchToPrimaryDocument);
+  const switchToTranslation = useCVStore((state) => state.switchToTranslation);
+  const translationLangs = Object.keys(translationCopies);
 
   const [editingTitle, setEditingTitle] = useState(false);
   const [titleDraft, setTitleDraft] = useState(title);
@@ -118,6 +125,40 @@ export function TopBar({ previewRef }: TopBarProps) {
       </div>
 
       <div className="ml-auto flex shrink-0 items-center gap-2 sm:gap-3">
+        {(primarySnapshot || translationLangs.length > 0) && (
+          <div className="hidden items-center gap-1 md:flex">
+            {(primarySnapshot || activeTranslationLang) && (
+              <button
+                type="button"
+                onClick={() => switchToPrimaryDocument()}
+                className={cn(
+                  'rounded-full border px-2.5 py-1 text-[0.65rem] font-semibold transition-colors',
+                  !activeTranslationLang
+                    ? 'border-cvforge-accent-blue bg-cvforge-accent-blue/20 text-cvforge-text'
+                    : 'border-cvforge-border text-cvforge-muted hover:text-cvforge-text',
+                )}
+              >
+                🇫🇷 Original
+              </button>
+            )}
+            {translationLangs.map((lang) => (
+              <button
+                key={lang}
+                type="button"
+                onClick={() => switchToTranslation(lang)}
+                className={cn(
+                  'rounded-full border px-2.5 py-1 text-[0.65rem] font-semibold transition-colors',
+                  activeTranslationLang === lang
+                    ? 'border-cvforge-accent-blue bg-cvforge-accent-blue/20 text-cvforge-text'
+                    : 'border-cvforge-border text-cvforge-muted hover:text-cvforge-text',
+                )}
+              >
+                {TRANSLATION_LANGUAGE_FLAGS[lang as TranslationTargetLanguage] ?? '🌐'} Voir en{' '}
+                {lang.toUpperCase()}
+              </button>
+            ))}
+          </div>
+        )}
         {!isPremium && (
           <a
             href="#premium"
