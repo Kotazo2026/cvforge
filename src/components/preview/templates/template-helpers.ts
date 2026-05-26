@@ -1,5 +1,6 @@
 import type { CVDocument, CVEntry, CVSection, SectionType } from '@/types/cv.types';
-import { formatDateRange, getInitials } from '@/utils/cv.utils';
+import { formatDateRangeForLayout, ensureDocumentLayout } from '@/utils/cv-layout.utils';
+import { getInitials } from '@/utils/cv.utils';
 
 export const CLASSIC_SIDEBAR_TYPES: SectionType[] = [
   'skills',
@@ -48,8 +49,14 @@ export function getSummaryText(document: CVDocument): string {
   return fromSection || document.header.summary || '';
 }
 
-export function entryDateLabel(entry: CVEntry): string {
-  return formatDateRange(entry.startDate, entry.endDate, entry.current);
+export function entryDateLabel(entry: CVEntry, document: CVDocument): string {
+  const layout = ensureDocumentLayout(document);
+  return formatDateRangeForLayout(
+    entry.startDate,
+    entry.endDate,
+    entry.current,
+    layout.dateFormat,
+  );
 }
 
 export function skillLabel(entry: CVEntry): string {

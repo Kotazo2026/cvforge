@@ -12,6 +12,7 @@ import {
   buildTemplateCssVars,
 } from './preview.constants';
 import styles from './CVPreview.module.css';
+import { LayoutFontLoader } from './LayoutFontLoader';
 import { TemplateRenderer } from './templates/TemplateRenderer';
 
 export interface CVPreviewProps {
@@ -39,6 +40,7 @@ export const CVPreview = forwardRef<HTMLDivElement, CVPreviewProps>(function CVP
       aria-label="Aperçu du CV"
       data-cvforge-chrome
     >
+      <LayoutFontLoader />
       {showZoomControls && (
         <div className={styles.toolbar} data-cvforge-chrome>
           <label className="flex items-center gap-2">

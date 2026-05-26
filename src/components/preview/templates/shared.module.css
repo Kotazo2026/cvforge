@@ -4,17 +4,13 @@
   min-height: 1123px;
   background: var(--cv-background, #ffffff);
   color: var(--cv-text, #111827);
-  font-family:
-    system-ui,
-    -apple-system,
-    'Segoe UI',
-    Roboto,
-    Helvetica,
-    Arial,
-    sans-serif;
-  font-size: calc(14px * var(--cv-font-scale, 1));
+  font-family: var(--cv-font-body, system-ui, sans-serif);
+  font-size: calc(var(--cv-text-size, 14px) * var(--cv-font-scale, 1));
+  font-weight: var(--cv-body-weight, 400);
+  font-style: var(--cv-body-style, normal);
   line-height: 1.45;
   overflow: hidden;
+  padding: var(--cv-padding-v, 0) var(--cv-padding-h, 0);
 }
 
 @media print {
@@ -27,21 +23,25 @@
 }
 
 .sectionTitle {
-  font-size: calc(0.78rem * var(--cv-font-scale, 1));
+  font-family: var(--cv-font-title, inherit);
+  font-size: calc(var(--cv-section-title-size, 12px) * var(--cv-font-scale, 1));
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin: 0 0 0.65rem;
+  color: var(--cv-color-section-main, var(--cv-primary, #2563eb));
 }
 
 .entryTitle {
   font-weight: 600;
   margin: 0;
+  color: var(--cv-text, #111827);
 }
 
 .entrySubtitle {
   margin: 0.1rem 0 0;
   opacity: 0.85;
+  color: var(--cv-color-organization, var(--cv-text, #111827));
 }
 
 .entryMeta {
@@ -54,4 +54,23 @@
 .entryDescription {
   margin: 0.35rem 0 0;
   white-space: pre-wrap;
+  text-align: var(--cv-summary-align, left);
+}
+
+.profileName {
+  color: var(--cv-color-name, var(--cv-text, #111827));
+  font-size: calc(var(--cv-name-size, 26px) * var(--cv-font-scale, 1));
+  text-transform: var(--cv-name-transform, none);
+}
+
+.profileJob {
+  color: var(--cv-color-job, var(--cv-primary, #2563eb));
+}
+
+.skillBarFill {
+  background: var(--cv-color-skill-bar, var(--cv-primary, #2563eb));
+}
+
+.timelineBlock {
+  display: var(--cv-timeline-display, block);
 }

@@ -1,5 +1,5 @@
 import type { BaseTemplateProps } from './BaseTemplate';
-import type { CVSection } from '@/types/cv.types';
+import type { CVDocument, CVSection } from '@/types/cv.types';
 import {
   entryDateLabel,
   getContactLines,
@@ -9,7 +9,7 @@ import {
 } from './template-helpers';
 import styles from './ElegantTemplate.module.css';
 
-function renderSectionBody(section: CVSection) {
+function renderSectionBody(section: CVSection, cv: CVDocument) {
   if (section.type === 'skills') {
     return (
       <p className={styles.inlineTags}>
@@ -22,7 +22,7 @@ function renderSectionBody(section: CVSection) {
     <div key={entry.id} className={styles.entry}>
       <div className={styles.entryHead}>
         <p className={styles.entryTitle}>{entry.title}</p>
-        {entryDateLabel(entry) && <p className={styles.entryDate}>{entryDateLabel(entry)}</p>}
+        {entryDateLabel(entry, cv) && <p className={styles.entryDate}>{entryDateLabel(entry, cv)}</p>}
       </div>
       {entry.subtitle && <p className={styles.entrySubtitle}>{entry.subtitle}</p>}
       {entry.location && <p className={styles.entryMeta}>{entry.location}</p>}
@@ -63,7 +63,7 @@ export function ElegantTemplate({ document }: BaseTemplateProps) {
         .map((section) => (
           <section key={section.id} className={styles.section}>
             <h2 className={styles.sectionTitle}>{section.title}</h2>
-            {renderSectionBody(section)}
+            {renderSectionBody(section, document)}
           </section>
         ))}
     </div>

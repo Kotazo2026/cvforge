@@ -13,6 +13,7 @@ import type {
   TemplateId,
 } from '@/types/cv.types';
 import { normalizeTemplateId } from '@/config/cv-templates';
+import { createDefaultLayout, mergeLayoutPatch } from '@/utils/cv-layout.utils';
 import { defaultCV, generateId } from '@/utils/cv.utils';
 import { cvPersistStorage } from './cv-storage';
 
@@ -150,6 +151,28 @@ export const useCVStore = create<CVStore>()(
       setColors: (colors: Partial<CVColors>) =>
         set((state) => {
           Object.assign(state.document.colors, colors);
+          if (!state.document.layout) {
+            state.document.layout = createDefaultLayout(state.document.colors);
+          }
+          if (colors.primary) {
+            state.document.layout.colors.skillBar = colors.primary;
+            state.document.layout.colors.sidebarBackground = colors.primary;
+            state.document.layout.colors.sectionTitleMain = colors.primary;
+            state.document.layout.colors.jobTitle = colors.primary;
+          }
+          if (colors.text) {
+            state.document.layout.colors.name = colors.text;
+            state.document.layout.colors.organization = colors.text;
+          }
+          touchDocument(state);
+        }),
+
+      setLayout: (layout) =>
+        set((state) => {
+          if (!state.document.layout) {
+            state.document.layout = createDefaultLayout(state.document.colors);
+          }
+          mergeLayoutPatch(state.document.layout, layout);
           touchDocument(state);
         }),
 
@@ -190,7 +213,7 @@ export const useCVStore = create<CVStore>()(
       storage: createJSONStorage(() => cvPersistStorage),
       partialize: (state) => ({ document: state.document }),
       skipHydration: true,
-      version: 2,
+      version: 3,
       merge: (persistedState, currentState) => {
         const persisted = persistedState as { document?: CVDocument } | undefined;
         const merged = {
@@ -202,6 +225,9 @@ export const useCVStore = create<CVStore>()(
             ...merged.document,
             templateId: normalizeTemplateId(merged.document.templateId),
           };
+          if (!merged.document.layout) {
+            merged.document.layout = createDefaultLayout(merged.document.colors);
+          }
         }
         return merged;
       },
@@ -213,6 +239,9 @@ export const useCVStore = create<CVStore>()(
           const state = persistedState as { document?: CVDocument };
           if (state.document?.templateId) {
             state.document.templateId = normalizeTemplateId(state.document.templateId);
+          }
+          if (state.document && !state.document.layout) {
+            state.document.layout = createDefaultLayout(state.document.colors);
           }
           return state;
         } catch {

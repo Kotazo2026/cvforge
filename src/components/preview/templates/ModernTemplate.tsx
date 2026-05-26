@@ -62,8 +62,8 @@ export function ModernTemplate({ document }: BaseTemplateProps) {
                 <div key={entry.id} className={styles.entry}>
                   <p className={styles.entryTitle}>{entry.title}</p>
                   {entry.subtitle && <p className={styles.entrySubtitle}>{entry.subtitle}</p>}
-                  {entryDateLabel(entry) && (
-                    <span className={styles.dateBadge}>{entryDateLabel(entry)}</span>
+                  {entryDateLabel(entry, document) && (
+                    <span className={styles.dateBadge}>{entryDateLabel(entry, document)}</span>
                   )}
                   {entry.description && (
                     <p className={styles.entryDescription}>{entry.description}</p>

@@ -95,8 +95,8 @@ export function ClassicTemplate({ document }: BaseTemplateProps) {
                   <p className={styles.entryTitle}>{entry.title}</p>
                   {entry.subtitle && <p className={styles.entrySubtitle}>{entry.subtitle}</p>}
                   {entry.location && <p className={styles.entrySubtitle}>{entry.location}</p>}
-                  {entryDateLabel(entry) && (
-                    <p className={styles.entryMeta}>{entryDateLabel(entry)}</p>
+                  {entryDateLabel(entry, document) && (
+                    <p className={styles.entryMeta}>{entryDateLabel(entry, document)}</p>
                   )}
                   {entry.description && (
                     <p className={styles.entryDescription}>{entry.description}</p>

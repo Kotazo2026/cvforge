@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import type { CVDocument, CVEntry, CVSection } from '@/types/cv.types';
+import { createDefaultLayout } from '@/utils/cv-layout.utils';
 
 const FRENCH_MONTHS = [
   'Jan',
@@ -183,6 +184,13 @@ export function defaultCV(): CVDocument {
     entries: [createLanguageEntry('Français', 5), createLanguageEntry('Anglais', 4)],
   };
 
+  const colors = {
+    primary: '#2563EB',
+    secondary: '#1E40AF',
+    text: '#111827',
+    background: '#FFFFFF',
+  };
+
   return {
     id: generateId(),
     title: 'Mon CV',
@@ -200,12 +208,8 @@ export function defaultCV(): CVDocument {
     },
     sections: [experienceSection, educationSection, skillsSection, languagesSection],
     templateId: 'classic',
-    colors: {
-      primary: '#2563EB',
-      secondary: '#1E40AF',
-      text: '#111827',
-      background: '#FFFFFF',
-    },
+    colors,
+    layout: createDefaultLayout(colors),
     fontSize: 'medium',
     createdAt: now,
     updatedAt: now,

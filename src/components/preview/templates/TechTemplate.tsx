@@ -96,8 +96,8 @@ export function TechTemplate({ document }: BaseTemplateProps) {
                 <li key={entry.id} className={styles.entry}>
                   <div className={styles.entryRow}>
                     <p className={styles.entryTitle}>{entry.title}</p>
-                    {entryDateLabel(entry) && (
-                      <span className={styles.dateChip}>{entryDateLabel(entry)}</span>
+                    {entryDateLabel(entry, document) && (
+                      <span className={styles.dateChip}>{entryDateLabel(entry, document)}</span>
                     )}
                   </div>
                   {entry.subtitle && <p className={styles.entrySubtitle}>{entry.subtitle}</p>}

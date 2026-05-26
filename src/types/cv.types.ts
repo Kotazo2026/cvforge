@@ -78,6 +78,57 @@ export interface CVColors {
   background: string; // hex
 }
 
+export type CVFontFamily =
+  | 'inter'
+  | 'lato'
+  | 'raleway'
+  | 'merriweather'
+  | 'roboto-slab'
+  | 'dm-sans'
+  | 'playfair'
+  | 'source-serif';
+
+export type CVFontStyle = 'normal' | 'bold' | 'italic';
+
+export type CVDateFormat = 'default' | 'mm-yyyy' | 'month-yyyy' | 'yyyy';
+
+export interface CVLayoutColors {
+  name: string;
+  jobTitle: string;
+  sectionTitleSidebar: string;
+  sectionTitleMain: string;
+  organization: string;
+  skillBar: string;
+  sidebarBackground: string;
+}
+
+export interface CVLayoutTypography {
+  bodyFont: CVFontFamily;
+  bodyStyle: CVFontStyle;
+  titleFont: CVFontFamily;
+  bodySizePx: number;
+  nameSizePx: number;
+  sectionTitleSizePx: number;
+}
+
+export interface CVLayoutSpacing {
+  blockGapPx: number;
+  paddingVerticalPx: number;
+  paddingHorizontalPx: number;
+}
+
+/** Options avancées de mise en page (Bloc 12+). */
+export interface CVLayoutOptions {
+  colors: CVLayoutColors;
+  typography: CVLayoutTypography;
+  spacing: CVLayoutSpacing;
+  roundedPhoto: boolean;
+  showTimeline: boolean;
+  nameUppercase: boolean;
+  summaryJustified: boolean;
+  dateFormat: CVDateFormat;
+}
+
 // Document CV complet
 export interface CVDocument {
   id: string;
@@ -86,6 +137,7 @@ export interface CVDocument {
   sections: CVSection[]; // ordonnées par drag & drop
   templateId: TemplateId;
   colors: CVColors;
+  layout: CVLayoutOptions;
   fontSize: 'small' | 'medium' | 'large';
   createdAt: string;
   updatedAt: string;
@@ -109,6 +161,16 @@ export interface CVStore {
   reorderEntries: (sectionId: string, activeId: string, overId: string) => void;
   setTemplate: (id: TemplateId) => void;
   setColors: (colors: Partial<CVColors>) => void;
+  setLayout: (layout: {
+    colors?: Partial<CVLayoutColors>;
+    typography?: Partial<CVLayoutTypography>;
+    spacing?: Partial<CVLayoutSpacing>;
+    roundedPhoto?: boolean;
+    showTimeline?: boolean;
+    nameUppercase?: boolean;
+    summaryJustified?: boolean;
+    dateFormat?: CVDateFormat;
+  }) => void;
   setFontSize: (size: CVDocument['fontSize']) => void;
   setDocumentTitle: (title: string) => void;
   toggleSectionVisibility: (id: string) => void;

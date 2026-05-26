@@ -22,7 +22,7 @@ export function CreativeTemplate({ document }: BaseTemplateProps) {
         <li key={entry.id} className={styles.timelineItem}>
           <p className={styles.entryTitle}>{entry.title}</p>
           {entry.subtitle && <p className={styles.entrySubtitle}>{entry.subtitle}</p>}
-          {entryDateLabel(entry) && <p className={styles.entryMeta}>{entryDateLabel(entry)}</p>}
+          {entryDateLabel(entry, document) && <p className={styles.entryMeta}>{entryDateLabel(entry, document)}</p>}
           {entry.description && <p className={styles.entryDescription}>{entry.description}</p>}
         </li>
       ))}

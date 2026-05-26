@@ -67,6 +67,62 @@ export const cvColorsSchema = z.object({
   background: z.string().regex(/^#[0-9A-Fa-f]{6}$/),
 });
 
+const hexColor = z.string().regex(/^#[0-9A-Fa-f]{6}$/);
+
+export const cvLayoutColorsSchema = z.object({
+  name: hexColor,
+  jobTitle: hexColor,
+  sectionTitleSidebar: hexColor,
+  sectionTitleMain: hexColor,
+  organization: hexColor,
+  skillBar: hexColor,
+  sidebarBackground: hexColor,
+});
+
+export const cvLayoutTypographySchema = z.object({
+  bodyFont: z.enum([
+    'inter',
+    'lato',
+    'raleway',
+    'merriweather',
+    'roboto-slab',
+    'dm-sans',
+    'playfair',
+    'source-serif',
+  ]),
+  bodyStyle: z.enum(['normal', 'bold', 'italic']),
+  titleFont: z.enum([
+    'inter',
+    'lato',
+    'raleway',
+    'merriweather',
+    'roboto-slab',
+    'dm-sans',
+    'playfair',
+    'source-serif',
+  ]),
+  bodySizePx: z.number().int().min(8).max(14),
+  nameSizePx: z.number().int().min(18).max(36),
+  sectionTitleSizePx: z.number().int().min(10).max(16),
+});
+
+export const cvLayoutSpacingSchema = z.object({
+  blockGapPx: z.number().int().min(8).max(48),
+  paddingVerticalPx: z.number().int().min(12).max(56),
+  paddingHorizontalPx: z.number().int().min(12).max(56),
+});
+
+export const cvLayoutOptionsSchema = z.object({
+  colors: cvLayoutColorsSchema,
+  typography: cvLayoutTypographySchema,
+  spacing: cvLayoutSpacingSchema,
+  roundedPhoto: z.boolean(),
+  showTimeline: z.boolean(),
+  nameUppercase: z.boolean(),
+  summaryJustified: z.boolean(),
+  dateFormat: z.enum(['default', 'mm-yyyy', 'month-yyyy', 'yyyy']),
+});
+
 export const cvDocumentSchema = z.object({
   id: z.string().min(1),
   title: z.string(),
@@ -74,6 +130,7 @@ export const cvDocumentSchema = z.object({
   sections: z.array(cvSectionSchema),
   templateId: templateIdSchema,
   colors: cvColorsSchema,
+  layout: cvLayoutOptionsSchema,
   fontSize: z.enum(['small', 'medium', 'large']),
   createdAt: z.string().datetime(),
   updatedAt: z.string().datetime(),
