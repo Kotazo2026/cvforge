@@ -70,6 +70,13 @@ describe('Editor shell v2', () => {
     expect(useCVStore.getState().document.colors.primary).toBe('#059669');
   });
 
+  it('affiche le panneau de progression intelligente sur grand écran', () => {
+    const previewRef = createRef<HTMLDivElement>();
+    render(<EditorShell previewRef={previewRef} />);
+    expect(screen.getByLabelText('Progression du CV')).toBeTruthy();
+    expect(screen.getByText('Progression intelligente')).toBeTruthy();
+  });
+
   it('affiche les onglets multi-format actifs', () => {
     const previewRef = createRef<HTMLDivElement>();
     render(<EditorShell previewRef={previewRef} />);

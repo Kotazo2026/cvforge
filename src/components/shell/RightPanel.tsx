@@ -1,65 +1,66 @@
 'use client';
 
 import { Briefcase } from 'lucide-react';
+import { useMemo } from 'react';
 import { useCVStore } from '@/store/cv.store';
-import { buildCvProgressChecklist, computeCvProgressPercent } from '@/utils/cv-progress';
-import { cn } from '@/utils/cv.utils';
+import {
+  buildCvProgressChecklist,
+  computeCvProgressScore,
+  type ProgressCategory,
+} from '@/utils/cv-progress';
+import { ProgressChecklist } from './ProgressChecklist';
 
 export function RightPanel() {
   const document = useCVStore((state) => state.document);
-  const items = buildCvProgressChecklist(document);
-  const percent = computeCvProgressPercent(items);
+
+  const score = useMemo(() => {
+    const items = buildCvProgressChecklist(document);
+    return computeCvProgressScore(items);
+  }, [document]);
+
+  const categoryScores: Record<ProgressCategory, number> = {
+    completeness: score.completeness,
+    quality: score.quality,
+    ats: score.ats,
+  };
 
   return (
     <aside
-      className="hidden w-[min(100%,280px)] shrink-0 flex-col border-l border-cvforge-border bg-cvforge-surface xl:flex"
+      className="hidden w-[min(100%,300px)] shrink-0 flex-col border-l border-cvforge-border bg-cvforge-surface xl:flex"
       aria-label="Progression du CV"
       data-cvforge-chrome
     >
       <div className="border-b border-cvforge-border px-4 py-4">
-        <div className="mb-2 flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-cvforge-text">Progression</h2>
-          <span className="text-sm font-bold text-cvforge-accent">{percent}%</span>
+        <div className="mb-1 flex items-center justify-between">
+          <h2 className="text-sm font-semibold text-cvforge-text">Progression intelligente</h2>
+          <span className="text-lg font-bold tabular-nums text-cvforge-accent">{score.percent}%</span>
         </div>
+        <p className="mb-3 text-[0.65rem] leading-relaxed text-cvforge-muted">
+          Score pondéré : complétude 40 % · qualité 35 % · ATS 25 %
+        </p>
         <div
-          className="h-2 overflow-hidden rounded-full bg-cvforge-raised"
+          className="h-2.5 overflow-hidden rounded-full bg-cvforge-raised"
           role="progressbar"
-          aria-valuenow={percent}
+          aria-valuenow={score.percent}
           aria-valuemin={0}
           aria-valuemax={100}
-          aria-label="Progression du CV"
+          aria-label="Score global du CV"
         >
           <div
-            className="h-full rounded-full bg-gradient-to-r from-cvforge-accent-blue to-cvforge-accent transition-all duration-500"
-            style={{ width: `${percent}%` }}
+            className="h-full rounded-full bg-gradient-to-r from-cvforge-accent-blue via-cvforge-accent to-emerald-500 transition-[width] duration-700 ease-out"
+            style={{ width: `${score.percent}%` }}
           />
+        </div>
+        <div className="mt-3 grid grid-cols-3 gap-1 text-center text-[0.65rem]">
+          <ScorePill label="Complétude" value={score.completeness} />
+          <ScorePill label="Qualité" value={score.quality} />
+          <ScorePill label="ATS" value={score.ats} />
         </div>
       </div>
 
-      <ul className="flex-1 space-y-2 overflow-y-auto px-4 py-3">
-        {items.map((item) => (
-          <li
-            key={item.id}
-            className={cn(
-              'flex items-start gap-2 rounded-lg px-2 py-1.5 text-sm transition-colors',
-              item.completed
-                ? 'text-emerald-400/90 line-through decoration-emerald-500/50'
-                : 'text-amber-200/90',
-            )}
-          >
-            <span
-              className={cn(
-                'mt-1.5 h-2 w-2 shrink-0 rounded-full',
-                item.completed ? 'bg-emerald-400' : 'bg-amber-400',
-              )}
-              aria-hidden
-            />
-            {item.label}
-          </li>
-        ))}
-      </ul>
+      <ProgressChecklist items={score.items} categoryScores={categoryScores} />
 
-      <section className="border-t border-cvforge-border p-4">
+      <section className="shrink-0 border-t border-cvforge-border p-4">
         <div className="flex items-center gap-2 text-sm font-semibold text-cvforge-text">
           <Briefcase className="h-4 w-4 text-cvforge-muted" aria-hidden />
           Offres d&apos;emploi adaptées
@@ -69,5 +70,14 @@ export function RightPanel() {
         </p>
       </section>
     </aside>
+  );
+}
+
+function ScorePill({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="rounded-md bg-cvforge-raised/80 px-1 py-1">
+      <div className="font-semibold tabular-nums text-cvforge-text">{value}%</div>
+      <div className="text-cvforge-muted">{label}</div>
+    </div>
   );
 }
