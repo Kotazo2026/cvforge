@@ -26,7 +26,7 @@ export function TopBar({ previewRef }: TopBarProps) {
   const setDocumentTitle = useCVStore((state) => state.setDocumentTitle);
   const cvLanguage = useEditorUIStore((state) => state.cvLanguage);
   const isPremium = useEditorUIStore((state) => state.isPremium);
-  const setActivePanel = useEditorUIStore((state) => state.setActivePanel);
+  const openAiModal = useEditorUIStore((state) => state.openAiModal);
 
   const [editingTitle, setEditingTitle] = useState(false);
   const [titleDraft, setTitleDraft] = useState(title);
@@ -106,7 +106,7 @@ export function TopBar({ previewRef }: TopBarProps) {
       <div className="flex flex-1 justify-center px-2">
         <button
           type="button"
-          onClick={() => setActivePanel('ai')}
+          onClick={() => openAiModal('prefill')}
           className={cn(
             'cvforge-ai-badge hidden items-center gap-2 rounded-full border border-cvforge-accent/60 bg-cvforge-raised px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-cvforge-text sm:inline-flex',
             'transition-transform hover:scale-[1.02] focus:outline-none focus-visible:ring-2 focus-visible:ring-cvforge-accent',

@@ -188,4 +188,14 @@ export interface CVStore {
   toggleSectionVisibility: (id: string) => void;
   selectSection: (id: string | null) => void;
   resetDocument: () => void;
+  applyPrefill: (input: {
+    jobTitle?: string;
+    summary?: string;
+    experiences?: Array<{
+      sectionId: string;
+      entryId: string;
+      title?: string;
+      description?: string;
+    }>;
+  }) => void;
 }

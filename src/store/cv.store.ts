@@ -2,6 +2,7 @@ import { arrayMove } from '@dnd-kit/sortable';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
+import type { ApplyPrefillInput } from '@/types/ai.types';
 import type {
   CVColors,
   CVDocument,
@@ -206,6 +207,40 @@ export const useCVStore = create<CVStore>()(
           state.document = defaultCV();
           state.selectedSectionId = null;
           state.isDirty = false;
+        }),
+
+      applyPrefill: (input: ApplyPrefillInput) =>
+        set((state) => {
+          if (input.jobTitle !== undefined) {
+            state.document.header.jobTitle = input.jobTitle;
+          }
+          if (input.summary !== undefined) {
+            state.document.header.summary = input.summary;
+            const summarySection = state.document.sections.find(
+              (section) => section.type === 'summary',
+            );
+            if (summarySection) {
+              if (summarySection.entries.length === 0) {
+                summarySection.entries.push({
+                  id: generateId(),
+                  title: 'Profil',
+                  description: input.summary,
+                });
+              } else {
+                summarySection.entries[0].description = input.summary;
+              }
+            }
+          }
+          if (input.experiences) {
+            for (const patch of input.experiences) {
+              const section = state.document.sections.find((s) => s.id === patch.sectionId);
+              const entry = section?.entries.find((e) => e.id === patch.entryId);
+              if (!entry) continue;
+              if (patch.title !== undefined) entry.title = patch.title;
+              if (patch.description !== undefined) entry.description = patch.description;
+            }
+          }
+          touchDocument(state);
         }),
     })),
     {

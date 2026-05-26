@@ -18,6 +18,8 @@ function resetStores(): void {
     cvLanguage: 'fr',
     isPremium: false,
     previewView: 'cv',
+    aiModalOpen: false,
+    aiModalTab: 'prefill',
   });
 }
 
@@ -75,6 +77,15 @@ describe('Editor shell v2', () => {
     render(<EditorShell previewRef={previewRef} />);
     expect(screen.getByLabelText('Progression du CV')).toBeTruthy();
     expect(screen.getByText('Progression intelligente')).toBeTruthy();
+  });
+
+  it('ouvre la modale IA depuis la barre supérieure', () => {
+    const previewRef = createRef<HTMLDivElement>();
+    render(<EditorShell previewRef={previewRef} />);
+
+    fireEvent.click(screen.getByRole('button', { name: /Fonctionnalités IA/i }));
+    expect(useEditorUIStore.getState().aiModalOpen).toBe(true);
+    expect(screen.getByRole('dialog', { name: /Fonctionnalités IA/i })).toBeTruthy();
   });
 
   it('affiche les onglets multi-format actifs', () => {

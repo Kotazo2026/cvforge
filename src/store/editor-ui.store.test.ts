@@ -10,11 +10,20 @@ describe('useEditorUIStore', () => {
       cvLanguage: 'fr',
       isPremium: false,
       previewView: 'cv',
+      aiModalOpen: false,
+      aiModalTab: 'prefill',
     });
   });
 
   it('change le panneau actif', () => {
     useEditorUIStore.getState().setActivePanel('sections');
     expect(useEditorUIStore.getState().activePanel).toBe('sections');
+  });
+
+  it('ouvre la modale IA sur le bon onglet', () => {
+    useEditorUIStore.getState().openAiModal('ats');
+    expect(useEditorUIStore.getState().aiModalOpen).toBe(true);
+    expect(useEditorUIStore.getState().aiModalTab).toBe('ats');
+    expect(useEditorUIStore.getState().activePanel).toBe('ai');
   });
 });
