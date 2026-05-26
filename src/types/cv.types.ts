@@ -91,6 +91,7 @@ export interface CVStore {
   setTemplate: (id: TemplateId) => void;
   setColors: (colors: Partial<CVColors>) => void;
   setFontSize: (size: CVDocument['fontSize']) => void;
+  setDocumentTitle: (title: string) => void;
   toggleSectionVisibility: (id: string) => void;
   selectSection: (id: string | null) => void;
   resetDocument: () => void;

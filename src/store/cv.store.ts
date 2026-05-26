@@ -157,6 +157,12 @@ export const useCVStore = create<CVStore>()(
           touchDocument(state);
         }),
 
+      setDocumentTitle: (title: string) =>
+        set((state) => {
+          state.document.title = title.trim() || 'Mon CV';
+          touchDocument(state);
+        }),
+
       toggleSectionVisibility: (id: string) =>
         set((state) => {
           const section = state.document.sections.find((s) => s.id === id);

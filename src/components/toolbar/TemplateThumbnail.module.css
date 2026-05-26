@@ -1,0 +1,177 @@
+.thumbnail {
+  width: 80px;
+  height: 60px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 2px solid #e2e8f0;
+  background: #ffffff;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.active {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px #2563eb;
+}
+
+/* Classic — sidebar gauche */
+.classic {
+  display: flex;
+  height: 100%;
+}
+
+.classicSidebar {
+  width: 30%;
+  background: var(--thumb-primary, #2563eb);
+  height: 100%;
+}
+
+.classicMain {
+  flex: 1;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.classicLine {
+  height: 3px;
+  background: #e2e8f0;
+  border-radius: 2px;
+}
+
+.classicLineAccent {
+  height: 4px;
+  width: 70%;
+  background: var(--thumb-primary, #2563eb);
+  border-radius: 2px;
+}
+
+/* Modern — bandeau haut */
+.modern {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.modernHeader {
+  height: 35%;
+  background: var(--thumb-primary, #2563eb);
+}
+
+.modernBody {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  padding: 4px;
+}
+
+.modernCol {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Minimal */
+.minimal {
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  height: 100%;
+}
+
+.minimalTitle {
+  height: 8px;
+  width: 55%;
+  background: #1f2937;
+  border-radius: 2px;
+}
+
+.minimalSub {
+  height: 4px;
+  width: 40%;
+  background: #cbd5e1;
+  border-radius: 2px;
+}
+
+.minimalRule {
+  height: 1px;
+  background: #e2e8f0;
+  margin: 2px 0;
+}
+
+.minimalAccent {
+  height: 3px;
+  width: 30%;
+  background: var(--thumb-primary, #2563eb);
+  border-radius: 2px;
+}
+
+/* Creative */
+.creative {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.creativeHeader {
+  height: 38%;
+  background: var(--thumb-primary, #2563eb);
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+}
+
+.creativeBody {
+  flex: 1;
+  padding: 4px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.creativeTimeline {
+  display: flex;
+  gap: 4px;
+  align-items: flex-start;
+}
+
+.creativeDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--thumb-primary, #2563eb);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* Executive */
+.executive {
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  gap: 3px;
+}
+
+.executiveTitle {
+  height: 7px;
+  width: 50%;
+  background: #1f2937;
+  border-radius: 2px;
+}
+
+.executiveBar {
+  height: 3px;
+  width: 25%;
+  background: var(--thumb-primary, #2563eb);
+  border-radius: 2px;
+}
+
+.executiveBlock {
+  width: 100%;
+  height: 3px;
+  background: #e2e8f0;
+  border-radius: 2px;
+}
