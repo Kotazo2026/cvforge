@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { CVEditor } from '@/components/editor/CVEditor';
-import { EditorLivePreview } from '@/components/preview/EditorLivePreview';
+import { EditorWorkspace } from '@/components/editor/EditorWorkspace';
 import { Toolbar } from '@/components/toolbar/Toolbar';
 import { useCVStore } from '@/store/cv.store';
 
@@ -21,26 +20,18 @@ export default function EditorPage() {
 
   if (!hydrated) {
     return (
-      <main className="flex h-screen items-center justify-center bg-slate-100">
+      <div className="flex h-screen items-center justify-center bg-slate-100">
         <p className="text-sm text-slate-500">Chargement de votre CV…</p>
-      </main>
+      </div>
     );
   }
 
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-slate-100">
-      <div data-cvforge-chrome>
+      <div data-cvforge-chrome className="shrink-0">
         <Toolbar previewRef={previewRef} />
       </div>
-      <main className="flex min-h-0 flex-1">
-        <CVEditor />
-        <div
-          className="flex min-w-0 flex-col"
-          style={{ width: 'calc(100% - 400px)' }}
-        >
-          <EditorLivePreview previewRef={previewRef} />
-        </div>
-      </main>
+      <EditorWorkspace previewRef={previewRef} />
     </div>
   );
 }

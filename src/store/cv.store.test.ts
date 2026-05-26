@@ -61,4 +61,18 @@ describe('useCVStore', () => {
     expect(useCVStore.getState().document.header.firstName).toBe('Marie');
     expect(useCVStore.getState().isDirty).toBe(true);
   });
+
+  it('persiste le document dans localStorage', () => {
+    useCVStore.getState().updateHeader({ firstName: 'Persist' });
+    const raw = localStorage.getItem('cvforge_document');
+    expect(raw).toBeTruthy();
+    expect(raw).toContain('Persist');
+  });
+
+  it('resetDocument restaure le CV par défaut', () => {
+    useCVStore.getState().updateHeader({ firstName: 'Temporaire' });
+    useCVStore.getState().resetDocument();
+    expect(useCVStore.getState().document.header.firstName).toBe('Alexandre');
+    expect(useCVStore.getState().isDirty).toBe(false);
+  });
 });

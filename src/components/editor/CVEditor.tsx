@@ -1,19 +1,27 @@
 'use client';
 
 import { useCVStore } from '@/store/cv.store';
+import { cn } from '@/utils/cv.utils';
 import { AddSectionMenu } from './AddSectionMenu';
 import { PhotoField } from './fields/PhotoField';
 import { TextField } from './fields/TextField';
 import { TextareaField } from './fields/TextareaField';
 import { SectionList } from './SectionList';
 
-export function CVEditor() {
+interface CVEditorProps {
+  className?: string;
+}
+
+export function CVEditor({ className }: CVEditorProps) {
   const header = useCVStore((state) => state.document.header);
   const updateHeader = useCVStore((state) => state.updateHeader);
 
   return (
     <aside
-      className="flex h-full w-[400px] shrink-0 flex-col border-r border-slate-200 bg-slate-50"
+      className={cn(
+        'flex h-full w-[400px] shrink-0 flex-col border-r border-slate-200 bg-slate-50',
+        className,
+      )}
       data-cvforge-chrome
     >
       <div className="flex-1 overflow-y-auto px-4 py-5">
