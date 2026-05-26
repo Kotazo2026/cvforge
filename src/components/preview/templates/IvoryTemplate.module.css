@@ -1,0 +1,86 @@
+.root {
+  composes: cvTemplate from './shared.module.css';
+  background: #fffdf8;
+  padding: 2.75rem 2.5rem;
+  font-family: 'Source Serif 4', Georgia, serif;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.name {
+  composes: profileName from './shared.module.css';
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+}
+
+.jobTitle {
+  composes: profileJob from './shared.module.css';
+  margin: 0.5rem 0 0;
+  font-style: italic;
+  font-size: calc(1rem * var(--cv-font-scale, 1));
+}
+
+.contact {
+  margin: 0.75rem 0 0;
+  font-size: calc(0.78rem * var(--cv-font-scale, 1));
+  font-family: var(--cv-font-body, system-ui, sans-serif);
+  opacity: 0.75;
+}
+
+.photoRow {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.photo {
+  width: 100px;
+  height: 100px;
+  border-radius: var(--cv-photo-radius, 50%);
+  object-fit: cover;
+  border: 1px solid #e7e5e4;
+}
+
+.section {
+  margin-top: calc(var(--cv-block-gap, 18px) * 1.1);
+  padding-top: 1rem;
+  border-top: 1px solid #e7e5e4;
+}
+
+.sectionTitle {
+  composes: sectionTitle from './shared.module.css';
+  text-align: center;
+  letter-spacing: 0.12em;
+  font-weight: 400;
+}
+
+.entry {
+  margin-bottom: 0.85rem;
+}
+
+.entryTitle {
+  composes: entryTitle from './shared.module.css';
+  font-family: var(--cv-font-body, system-ui, sans-serif);
+}
+
+.entrySubtitle {
+  composes: entrySubtitle from './shared.module.css';
+}
+
+.entryMeta {
+  composes: entryMeta from './shared.module.css';
+  font-family: var(--cv-font-body, system-ui, sans-serif);
+}
+
+.entryDescription {
+  composes: entryDescription from './shared.module.css';
+}
+
+.inlineTags {
+  composes: entryDescription from './shared.module.css';
+  text-align: center;
+}

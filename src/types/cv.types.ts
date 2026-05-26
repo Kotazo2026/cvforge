@@ -68,7 +68,19 @@ export type TemplateId =
   | 'executive'
   | 'elegant'
   | 'tech'
-  | 'academic';
+  | 'academic'
+  | 'nova'
+  | 'slate'
+  | 'coral'
+  | 'obsidian'
+  | 'sage'
+  | 'ivory'
+  | 'prism'
+  | 'loft'
+  | 'atlas'
+  | 'ember'
+  | 'frost'
+  | 'dusk';
 
 // Couleurs primaires du template
 export interface CVColors {

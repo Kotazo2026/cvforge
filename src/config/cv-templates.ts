@@ -15,6 +15,18 @@ export const CV_TEMPLATES: CvTemplateMeta[] = [
   { id: 'elegant', label: 'Élégant' },
   { id: 'tech', label: 'Tech' },
   { id: 'academic', label: 'Académique' },
+  { id: 'nova', label: 'Nova' },
+  { id: 'slate', label: 'Slate' },
+  { id: 'coral', label: 'Coral' },
+  { id: 'obsidian', label: 'Obsidian' },
+  { id: 'sage', label: 'Sage' },
+  { id: 'ivory', label: 'Ivory' },
+  { id: 'prism', label: 'Prism' },
+  { id: 'loft', label: 'Loft' },
+  { id: 'atlas', label: 'Atlas' },
+  { id: 'ember', label: 'Ember' },
+  { id: 'frost', label: 'Frost' },
+  { id: 'dusk', label: 'Dusk' },
 ];
 
 const TEMPLATE_IDS = new Set<TemplateId>(CV_TEMPLATES.map((t) => t.id));

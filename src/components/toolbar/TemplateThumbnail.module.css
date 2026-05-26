@@ -280,3 +280,238 @@
   background: var(--thumb-primary, #2563eb);
   border-radius: 1px;
 }
+
+/* Nova */
+.nova {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.novaHero {
+  height: 38%;
+  background: var(--thumb-primary, #2563eb);
+}
+
+.novaBody {
+  flex: 1;
+  padding: 4px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+/* Slate */
+.slate {
+  padding: 6px 8px;
+  border-left: 3px solid var(--thumb-primary, #475569);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.slateBar {
+  height: 4px;
+  width: 55%;
+  background: #64748b;
+  border-radius: 2px;
+}
+
+/* Coral */
+.coral {
+  display: flex;
+  height: 100%;
+  box-shadow: inset 3px 0 0 var(--thumb-primary, #f97316);
+}
+
+.coralSide {
+  width: 30%;
+  background: color-mix(in srgb, var(--thumb-primary, #f97316) 25%, white);
+}
+
+.coralMain {
+  flex: 1;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Obsidian */
+.obsidian {
+  display: flex;
+  height: 100%;
+}
+
+.obsidianSide {
+  width: 32%;
+  background: #0f172a;
+}
+
+.obsidianMain {
+  flex: 1;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Sage */
+.sage {
+  padding: 5px;
+  height: 100%;
+  background: #ecfdf5;
+}
+
+.sageCard {
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 4px;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  height: 100%;
+}
+
+/* Ivory */
+.ivory {
+  padding: 6px 8px;
+  height: 100%;
+  background: #fffdf8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.ivoryTitle {
+  height: 5px;
+  width: 45%;
+  background: #44403c;
+  border-radius: 2px;
+}
+
+.ivoryRule {
+  width: 100%;
+  height: 1px;
+  background: #e7e5e4;
+}
+
+/* Prism */
+.prism {
+  height: 100%;
+  position: relative;
+  padding: 4px;
+}
+
+.prismShape {
+  height: 45%;
+  background: linear-gradient(120deg, var(--thumb-primary, #7c3aed), #2563eb);
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+  margin-bottom: 4px;
+}
+
+/* Loft */
+.loft {
+  padding: 5px 7px;
+  height: 100%;
+  background: #f5f5f4;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.loftBar {
+  width: 18%;
+  height: 4px;
+  background: #292524;
+}
+
+.loftTitle {
+  height: 4px;
+  width: 50%;
+  background: #44403c;
+  border-radius: 1px;
+}
+
+/* Atlas */
+.atlas {
+  height: 100%;
+  padding: 4px;
+  position: relative;
+}
+
+.atlasGrid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(37, 99, 235, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 99, 235, 0.12) 1px, transparent 1px);
+  background-size: 8px 8px;
+}
+
+.atlas .classicLineAccent,
+.atlas .classicLine {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ember */
+.ember {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.emberBanner {
+  height: 35%;
+  background: var(--thumb-primary, #ea580c);
+}
+
+.ember .classicLine {
+  margin: 4px 6px 0;
+}
+
+/* Frost */
+.frost {
+  padding: 5px 6px;
+  height: 100%;
+  background: linear-gradient(180deg, #e0f2fe, #fff);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.frostHeader {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.frostDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #7dd3fc;
+  flex-shrink: 0;
+}
+
+/* Dusk */
+.dusk {
+  display: flex;
+  height: 100%;
+}
+
+.duskSide {
+  width: 32%;
+  background: linear-gradient(180deg, #312e81, #1e1b4b);
+}
+
+.duskMain {
+  flex: 1;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}

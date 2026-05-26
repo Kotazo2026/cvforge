@@ -1,0 +1,122 @@
+.root {
+  composes: cvTemplate from './shared.module.css';
+  display: flex;
+  box-shadow: inset 8px 0 0 var(--cv-primary, #f97316);
+}
+
+.sidebar {
+  width: 32%;
+  background: color-mix(in srgb, var(--cv-primary, #f97316) 12%, #fff7ed);
+  padding: 1.75rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.main {
+  width: 68%;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--cv-block-gap, 1.2rem);
+}
+
+.photoWrap {
+  display: flex;
+  justify-content: center;
+}
+
+.photo {
+  width: 90px;
+  height: 90px;
+  border-radius: var(--cv-photo-radius, 50%);
+  object-fit: cover;
+  border: 3px solid var(--cv-primary, #f97316);
+}
+
+.initials {
+  width: 90px;
+  height: 90px;
+  border-radius: var(--cv-photo-radius, 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  background: var(--cv-primary, #f97316);
+  color: #fff;
+}
+
+.name {
+  composes: profileName from './shared.module.css';
+  margin: 0;
+  text-align: center;
+  font-size: calc(1.2rem * var(--cv-font-scale, 1));
+}
+
+.jobTitle {
+  composes: profileJob from './shared.module.css';
+  margin: 0.3rem 0 0;
+  text-align: center;
+  font-size: calc(0.85rem * var(--cv-font-scale, 1));
+}
+
+.contactList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: calc(0.76rem * var(--cv-font-scale, 1));
+  line-height: 1.55;
+}
+
+.sidebarBlock {
+  border-top: 1px solid color-mix(in srgb, var(--cv-primary, #f97316) 35%, transparent);
+  padding-top: 0.85rem;
+}
+
+.sidebarTitle {
+  composes: sectionTitle from './shared.module.css';
+  color: var(--cv-color-section-sidebar, var(--cv-primary, #ea580c));
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.tag {
+  font-size: calc(0.72rem * var(--cv-font-scale, 1));
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--cv-primary, #f97316) 20%, white);
+}
+
+.mainTitle {
+  composes: sectionTitle from './shared.module.css';
+  color: var(--cv-color-section-main, var(--cv-primary, #ea580c));
+}
+
+.entry {
+  margin-bottom: 0.75rem;
+}
+
+.entryTitle {
+  composes: entryTitle from './shared.module.css';
+}
+
+.entrySubtitle {
+  composes: entrySubtitle from './shared.module.css';
+}
+
+.entryMeta {
+  composes: entryMeta from './shared.module.css';
+}
+
+.entryDescription {
+  composes: entryDescription from './shared.module.css';
+}
+
+.summary {
+  composes: entryDescription from './shared.module.css';
+  margin: 0;
+}

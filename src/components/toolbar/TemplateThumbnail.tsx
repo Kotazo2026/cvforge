@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import type { TemplateId } from '@/types/cv.types';
 import { cn } from '@/utils/cv.utils';
 import styles from './TemplateThumbnail.module.css';
@@ -9,8 +9,34 @@ interface TemplateThumbnailProps {
   primaryColor: string;
 }
 
+type ThumbRenderer = () => ReactNode;
+
+const THUMBS: Record<TemplateId, ThumbRenderer> = {
+  classic: ClassicThumb,
+  modern: ModernThumb,
+  minimal: MinimalThumb,
+  creative: CreativeThumb,
+  executive: ExecutiveThumb,
+  elegant: ElegantThumb,
+  tech: TechThumb,
+  academic: AcademicThumb,
+  nova: NovaThumb,
+  slate: SlateThumb,
+  coral: CoralThumb,
+  obsidian: ObsidianThumb,
+  sage: SageThumb,
+  ivory: IvoryThumb,
+  prism: PrismThumb,
+  loft: LoftThumb,
+  atlas: AtlasThumb,
+  ember: EmberThumb,
+  frost: FrostThumb,
+  dusk: DuskThumb,
+};
+
 export function TemplateThumbnail({ templateId, active, primaryColor }: TemplateThumbnailProps) {
   const thumbStyle = { '--thumb-primary': primaryColor } as CSSProperties;
+  const Thumb = THUMBS[templateId] ?? ClassicThumb;
 
   return (
     <div
@@ -18,14 +44,7 @@ export function TemplateThumbnail({ templateId, active, primaryColor }: Template
       style={thumbStyle}
       aria-hidden
     >
-      {templateId === 'classic' && <ClassicThumb />}
-      {templateId === 'modern' && <ModernThumb />}
-      {templateId === 'minimal' && <MinimalThumb />}
-      {templateId === 'creative' && <CreativeThumb />}
-      {templateId === 'executive' && <ExecutiveThumb />}
-      {templateId === 'elegant' && <ElegantThumb />}
-      {templateId === 'tech' && <TechThumb />}
-      {templateId === 'academic' && <AcademicThumb />}
+      <Thumb />
     </div>
   );
 }
@@ -138,6 +157,135 @@ function AcademicThumb() {
       <div className={styles.academicRule} />
       <div className={styles.classicLineAccent} />
       <div className={styles.classicLine} />
+    </div>
+  );
+}
+
+function NovaThumb() {
+  return (
+    <div className={styles.nova}>
+      <div className={styles.novaHero} />
+      <div className={styles.novaBody}>
+        <div className={styles.classicLineAccent} />
+        <div className={styles.classicLine} />
+      </div>
+    </div>
+  );
+}
+
+function SlateThumb() {
+  return (
+    <div className={styles.slate}>
+      <div className={styles.slateBar} />
+      <div className={styles.classicLine} />
+      <div className={styles.classicLine} style={{ width: '80%' }} />
+    </div>
+  );
+}
+
+function CoralThumb() {
+  return (
+    <div className={styles.coral}>
+      <div className={styles.coralSide} />
+      <div className={styles.coralMain}>
+        <div className={styles.classicLineAccent} />
+        <div className={styles.classicLine} />
+      </div>
+    </div>
+  );
+}
+
+function ObsidianThumb() {
+  return (
+    <div className={styles.obsidian}>
+      <div className={styles.obsidianSide} />
+      <div className={styles.obsidianMain}>
+        <div className={styles.classicLine} />
+        <div className={styles.classicLineAccent} />
+      </div>
+    </div>
+  );
+}
+
+function SageThumb() {
+  return (
+    <div className={styles.sage}>
+      <div className={styles.sageCard}>
+        <div className={styles.classicLineAccent} />
+        <div className={styles.classicLine} />
+      </div>
+    </div>
+  );
+}
+
+function IvoryThumb() {
+  return (
+    <div className={styles.ivory}>
+      <div className={styles.ivoryTitle} />
+      <div className={styles.ivoryRule} />
+      <div className={styles.classicLine} />
+    </div>
+  );
+}
+
+function PrismThumb() {
+  return (
+    <div className={styles.prism}>
+      <div className={styles.prismShape} />
+      <div className={styles.classicLineAccent} />
+    </div>
+  );
+}
+
+function LoftThumb() {
+  return (
+    <div className={styles.loft}>
+      <div className={styles.loftBar} />
+      <div className={styles.loftTitle} />
+      <div className={styles.classicLine} />
+    </div>
+  );
+}
+
+function AtlasThumb() {
+  return (
+    <div className={styles.atlas}>
+      <div className={styles.atlasGrid} />
+      <div className={styles.classicLineAccent} />
+      <div className={styles.classicLine} />
+    </div>
+  );
+}
+
+function EmberThumb() {
+  return (
+    <div className={styles.ember}>
+      <div className={styles.emberBanner} />
+      <div className={styles.classicLine} />
+    </div>
+  );
+}
+
+function FrostThumb() {
+  return (
+    <div className={styles.frost}>
+      <div className={styles.frostHeader}>
+        <div className={styles.frostDot} />
+        <div className={styles.classicLine} style={{ flex: 1 }} />
+      </div>
+      <div className={styles.classicLine} style={{ borderStyle: 'dashed' }} />
+    </div>
+  );
+}
+
+function DuskThumb() {
+  return (
+    <div className={styles.dusk}>
+      <div className={styles.duskSide} />
+      <div className={styles.duskMain}>
+        <div className={styles.classicLineAccent} />
+        <div className={styles.classicLine} />
+      </div>
     </div>
   );
 }
