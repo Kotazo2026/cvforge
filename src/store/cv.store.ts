@@ -191,15 +191,33 @@ export const useCVStore = create<CVStore>()(
       partialize: (state) => ({ document: state.document }),
       skipHydration: true,
       version: 2,
+      merge: (persistedState, currentState) => {
+        const persisted = persistedState as { document?: CVDocument } | undefined;
+        const merged = {
+          ...currentState,
+          ...persisted,
+        };
+        if (merged.document) {
+          merged.document = {
+            ...merged.document,
+            templateId: normalizeTemplateId(merged.document.templateId),
+          };
+        }
+        return merged;
+      },
       migrate: (persistedState) => {
-        if (!persistedState || typeof persistedState !== 'object') {
-          return persistedState as { document: CVDocument };
+        try {
+          if (!persistedState || typeof persistedState !== 'object') {
+            return { document: defaultCV() };
+          }
+          const state = persistedState as { document?: CVDocument };
+          if (state.document?.templateId) {
+            state.document.templateId = normalizeTemplateId(state.document.templateId);
+          }
+          return state;
+        } catch {
+          return { document: defaultCV() };
         }
-        const state = persistedState as { document?: CVDocument };
-        if (state.document?.templateId) {
-          state.document.templateId = normalizeTemplateId(state.document.templateId);
-        }
-        return state;
       },
     },
   ),

@@ -3,48 +3,54 @@
 import { useEffect, useState } from 'react';
 import { useCVStore } from '@/store/cv.store';
 
-const HYDRATION_TIMEOUT_MS = 3000;
+const MAX_WAIT_MS = 1500;
 
 /**
- * Attend la réhydratation Zustand persist (localStorage) avant d'afficher l'éditeur.
- * Évite l'écran « Chargement… » infini sous Next.js.
+ * Attend la réhydratation Zustand persist (localStorage), avec délai max.
+ * L’UI s’affiche toujours après MAX_WAIT_MS même si le stockage est corrompu.
  */
 export function useCvHydration(): boolean {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
-    let cancelled = false;
+    let active = true;
 
-    const markReady = () => {
-      if (!cancelled) setHydrated(true);
+    const settle = () => {
+      if (active) setHydrated(true);
     };
 
     if (useCVStore.persist.hasHydrated()) {
-      markReady();
-      return;
+      settle();
+      return () => {
+        active = false;
+      };
     }
 
-    const unsubFinish = useCVStore.persist.onFinishHydration(markReady);
+    const unsubFinish = useCVStore.persist.onFinishHydration(settle);
 
-    const runRehydrate = async () => {
+    const run = async () => {
       try {
         await useCVStore.persist.rehydrate();
       } catch {
-        useCVStore.persist.clearStorage();
-        await useCVStore.persist.rehydrate();
+        try {
+          useCVStore.persist.clearStorage();
+          await useCVStore.persist.rehydrate();
+        } catch {
+          // Données illisibles : l’éditeur part sur le CV par défaut en mémoire
+        }
       } finally {
-        markReady();
+        settle();
       }
     };
 
-    void runRehydrate();
+    void run();
 
-    const timeout = window.setTimeout(markReady, HYDRATION_TIMEOUT_MS);
+    const timeoutId = window.setTimeout(settle, MAX_WAIT_MS);
 
     return () => {
-      cancelled = true;
+      active = false;
       unsubFinish();
-      clearTimeout(timeout);
+      window.clearTimeout(timeoutId);
     };
   }, []);
 

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { CvPersistBootstrap } from './CvPersistBootstrap';
 
 export const metadata: Metadata = {
   title: 'CVForge — Créez votre CV',
@@ -7,5 +8,10 @@ export const metadata: Metadata = {
 };
 
 export default function EditorLayout({ children }: { children: React.ReactNode }) {
-  return children;
+  return (
+    <>
+      <CvPersistBootstrap />
+      {children}
+    </>
+  );
 }
