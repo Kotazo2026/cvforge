@@ -1,0 +1,57 @@
+.cvTemplate {
+  box-sizing: border-box;
+  width: 794px;
+  min-height: 1123px;
+  background: var(--cv-background, #ffffff);
+  color: var(--cv-text, #111827);
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  font-size: calc(14px * var(--cv-font-scale, 1));
+  line-height: 1.45;
+  overflow: hidden;
+}
+
+@media print {
+  .cvTemplate {
+    width: 794px;
+    min-height: 1123px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+.sectionTitle {
+  font-size: calc(0.78rem * var(--cv-font-scale, 1));
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 0.65rem;
+}
+
+.entryTitle {
+  font-weight: 600;
+  margin: 0;
+}
+
+.entrySubtitle {
+  margin: 0.1rem 0 0;
+  opacity: 0.85;
+}
+
+.entryMeta {
+  margin: 0.15rem 0 0;
+  font-size: calc(0.82rem * var(--cv-font-scale, 1));
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.entryDescription {
+  margin: 0.35rem 0 0;
+  white-space: pre-wrap;
+}

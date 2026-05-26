@@ -1,0 +1,125 @@
+.root {
+  composes: cvTemplate from './shared.module.css';
+  display: flex;
+}
+
+.sidebar {
+  width: 30%;
+  background: var(--cv-primary, #2563eb);
+  color: #ffffff;
+  padding: 1.75rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.main {
+  width: 70%;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+}
+
+.photoWrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.photo {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.35);
+}
+
+.initials {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.name {
+  margin: 0;
+  font-size: calc(1.35rem * var(--cv-font-scale, 1));
+  font-weight: 700;
+  text-align: center;
+}
+
+.jobTitle {
+  margin: 0.35rem 0 0;
+  text-align: center;
+  font-size: calc(0.9rem * var(--cv-font-scale, 1));
+  opacity: 0.9;
+}
+
+.sidebarSection {
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  padding-top: 1rem;
+}
+
+.sidebarTitle {
+  composes: sectionTitle from './shared.module.css';
+  color: #ffffff;
+}
+
+.contactList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: calc(0.78rem * var(--cv-font-scale, 1));
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  word-break: break-word;
+}
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.tag {
+  font-size: calc(0.75rem * var(--cv-font-scale, 1));
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+
+.mainSectionTitle {
+  composes: sectionTitle from './shared.module.css';
+  color: var(--cv-primary, #2563eb);
+  border-bottom: 2px solid var(--cv-primary, #2563eb);
+  padding-bottom: 0.25rem;
+}
+
+.entry {
+  margin-bottom: 0.85rem;
+}
+
+.entry:last-child {
+  margin-bottom: 0;
+}
+
+.entryList {
+  margin: 0;
+  padding-left: 1rem;
+}
+
+.entryList li {
+  margin-bottom: 0.75rem;
+}
+
+.summary {
+  composes: entryDescription from './shared.module.css';
+  margin: 0;
+}

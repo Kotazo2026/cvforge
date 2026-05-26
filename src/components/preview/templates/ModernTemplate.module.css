@@ -1,0 +1,108 @@
+.root {
+  composes: cvTemplate from './shared.module.css';
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background: var(--cv-primary, #2563eb);
+  color: #ffffff;
+  padding: 1.5rem 1.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.headerMain {
+  flex: 1;
+  min-width: 0;
+}
+
+.name {
+  margin: 0;
+  font-size: calc(2rem * var(--cv-font-scale, 1));
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.jobTitle {
+  margin: 0.4rem 0 0.75rem;
+  font-size: calc(1rem * var(--cv-font-scale, 1));
+  opacity: 0.95;
+}
+
+.contactRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  font-size: calc(0.78rem * var(--cv-font-scale, 1));
+  opacity: 0.92;
+}
+
+.photo {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.35);
+  flex-shrink: 0;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem 1.5rem;
+  padding: 1.35rem 1.5rem 1.5rem;
+}
+
+.sectionTitle {
+  composes: sectionTitle from './shared.module.css';
+  color: var(--cv-primary, #2563eb);
+  border-left: 3px solid var(--cv-primary, #2563eb);
+  padding-left: 0.5rem;
+}
+
+.entry {
+  margin-bottom: 0.85rem;
+}
+
+.dateBadge {
+  display: inline-block;
+  margin-top: 0.25rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  font-size: calc(0.72rem * var(--cv-font-scale, 1));
+  background: color-mix(in srgb, var(--cv-primary, #2563eb) 15%, white);
+  color: var(--cv-text, #111827);
+}
+
+.entryTitle {
+  composes: entryTitle from './shared.module.css';
+}
+
+.entrySubtitle {
+  composes: entrySubtitle from './shared.module.css';
+}
+
+.entryDescription {
+  composes: entryDescription from './shared.module.css';
+}
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.tag {
+  font-size: calc(0.75rem * var(--cv-font-scale, 1));
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--cv-primary, #2563eb) 12%, white);
+  color: var(--cv-text, #111827);
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}

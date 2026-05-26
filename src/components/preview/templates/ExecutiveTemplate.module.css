@@ -1,0 +1,105 @@
+.root {
+  composes: cvTemplate from './shared.module.css';
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 2.25rem 1.5rem;
+  position: relative;
+}
+
+.topRow {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+.photo {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.name {
+  margin: 0;
+  text-align: center;
+  font-size: calc(2rem * var(--cv-font-scale, 1));
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.divider {
+  height: 4px;
+  width: 120px;
+  margin: 0.75rem auto 1rem;
+  background: var(--cv-primary, #2563eb);
+}
+
+.jobTitle {
+  text-align: center;
+  margin: 0 0 0.35rem;
+  font-size: calc(1rem * var(--cv-font-scale, 1));
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.contact {
+  text-align: center;
+  font-size: calc(0.82rem * var(--cv-font-scale, 1));
+  opacity: 0.7;
+  margin-bottom: 1.25rem;
+}
+
+.section {
+  margin-bottom: 1.1rem;
+}
+
+.sectionTitle {
+  composes: sectionTitle from './shared.module.css';
+  color: var(--cv-primary, #2563eb);
+  text-align: center;
+  margin-bottom: 0.65rem;
+}
+
+.entry {
+  margin-bottom: 0.9rem;
+  text-align: justify;
+  line-height: 1.55;
+}
+
+.entryTitle {
+  composes: entryTitle from './shared.module.css';
+  text-align: left;
+}
+
+.entrySubtitle {
+  composes: entrySubtitle from './shared.module.css';
+  text-align: left;
+}
+
+.entryMeta {
+  composes: entryMeta from './shared.module.css';
+  text-align: left;
+}
+
+.entryDescription {
+  composes: entryDescription from './shared.module.css';
+}
+
+.summary {
+  composes: entryDescription from './shared.module.css';
+  text-align: justify;
+  line-height: 1.6;
+}
+
+.footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  text-align: center;
+  font-size: calc(0.75rem * var(--cv-font-scale, 1));
+  opacity: 0.45;
+}

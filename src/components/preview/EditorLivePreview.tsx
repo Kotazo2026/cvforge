@@ -1,64 +1,69 @@
 'use client';
 
+import type { CSSProperties } from 'react';
+import type { TemplateId } from '@/types/cv.types';
 import { useCVStore } from '@/store/cv.store';
-import { formatDateRange } from '@/utils/cv.utils';
+import { TemplateRenderer } from './templates/TemplateRenderer';
+import { cn } from '@/utils/cv.utils';
 
-/** Aperçu minimal temps réel (remplacé par les templates au Bloc 6–7). */
+const TEMPLATE_LABELS: Record<TemplateId, string> = {
+  classic: 'Classic',
+  modern: 'Modern',
+  minimal: 'Minimal',
+  creative: 'Creative',
+  executive: 'Executive',
+};
+
+const FONT_SCALE: Record<'small' | 'medium' | 'large', number> = {
+  small: 0.9,
+  medium: 1,
+  large: 1.1,
+};
+
+/** Aperçu live avec templates CV (zoom complet au Bloc 7). */
 export function EditorLivePreview() {
   const document = useCVStore((state) => state.document);
+  const setTemplate = useCVStore((state) => state.setTemplate);
+
+  const cssVars = {
+    '--cv-primary': document.colors.primary,
+    '--cv-secondary': document.colors.secondary,
+    '--cv-text': document.colors.text,
+    '--cv-background': document.colors.background,
+    '--cv-font-scale': String(FONT_SCALE[document.fontSize]),
+  } as CSSProperties;
 
   return (
-    <div className="mx-auto max-w-2xl rounded-xl bg-white p-8 shadow-sm">
-      <header className="border-b border-slate-200 pb-4">
-        <h1 className="text-2xl font-bold text-slate-900">
-          {document.header.firstName} {document.header.lastName}
-        </h1>
-        <p className="text-lg text-slate-600">{document.header.jobTitle}</p>
-        <p className="mt-2 text-sm text-slate-500">
-          {[document.header.email, document.header.phone, document.header.location]
-            .filter(Boolean)
-            .join(' · ')}
-        </p>
-        {document.header.summary && (
-          <p className="mt-3 text-sm leading-relaxed text-slate-700">{document.header.summary}</p>
-        )}
-      </header>
+    <div className="flex flex-col items-center gap-4">
+      <div
+        className="flex flex-wrap justify-center gap-2 rounded-xl bg-white/80 p-2 shadow-sm"
+        role="tablist"
+        aria-label="Choisir un template"
+      >
+        {(Object.keys(TEMPLATE_LABELS) as TemplateId[]).map((id) => (
+          <button
+            key={id}
+            type="button"
+            role="tab"
+            aria-selected={document.templateId === id}
+            onClick={() => setTemplate(id)}
+            className={cn(
+              'rounded-lg px-3 py-1.5 text-xs font-medium transition-colors',
+              'focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500',
+              document.templateId === id
+                ? 'bg-[#2563EB] text-white'
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200',
+            )}
+          >
+            {TEMPLATE_LABELS[id]}
+          </button>
+        ))}
+      </div>
 
-      <div className="mt-6 flex flex-col gap-6">
-        {document.sections
-          .filter((section) => section.visible)
-          .map((section) => (
-            <section key={section.id}>
-              <h2
-                className="mb-2 text-sm font-bold uppercase tracking-wide"
-                style={{ color: document.colors.primary }}
-              >
-                {section.title}
-              </h2>
-              <ul className="flex flex-col gap-3">
-                {section.entries.map((entry) => (
-                  <li key={entry.id} className="text-sm text-slate-700">
-                    <p className="font-medium text-slate-900">{entry.title}</p>
-                    {entry.subtitle && <p className="text-slate-600">{entry.subtitle}</p>}
-                    {(entry.startDate || entry.current) && (
-                      <p className="text-xs italic text-slate-400">
-                        {formatDateRange(entry.startDate, entry.endDate, entry.current)}
-                      </p>
-                    )}
-                    {entry.tags && entry.tags.length > 0 && (
-                      <p className="mt-1 text-xs text-slate-500">{entry.tags.join(' · ')}</p>
-                    )}
-                    {entry.level !== undefined && section.type === 'languages' && (
-                      <p className="text-xs text-slate-500">Niveau {entry.level}/5</p>
-                    )}
-                    {entry.description && (
-                      <p className="mt-1 whitespace-pre-wrap text-slate-600">{entry.description}</p>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))}
+      <div className="overflow-auto rounded-lg bg-slate-200/60 p-4 shadow-inner">
+        <div style={cssVars}>
+          <TemplateRenderer document={document} />
+        </div>
       </div>
     </div>
   );
